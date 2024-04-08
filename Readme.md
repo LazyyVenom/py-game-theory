@@ -1,7 +1,7 @@
 # Py-Game Implementation of Prisoner's Dilemma 🐍🎮
 
 ## Introduction
-This project implements the classic game theory scenario, **Prisoner's Dilemma**, using Python and Pygame. In this game, two players must decide whether to cooperate or defect, with the aim of maximizing their own payoff while considering the other player's decision.
+This project implements the classic game theory scenario, **Prisoner's Dilemma**, using Python and Pygame. In this game, two players must decide whether to cooperate or defect, with the aim of maximizing their own payoff while considering the other player's decision
 
 ## Features
 - **Pygame Interface**: Engage in the Prisoner's Dilemma in a visually appealing environment created using Pygame.
