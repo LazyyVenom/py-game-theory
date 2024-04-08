@@ -15,7 +15,6 @@ This project implements the classic game theory scenario, **Prisoner's Dilemma**
 4. **Gameplay**: Make decisions to cooperate or defect in each round, aiming to maximize your score while considering your opponent's actions.
 
 ## Decision Strategies
-Several decision-making strategies can be implemented for the players:
 - **Tit-for-Tat**: Cooperate on the first move, then mirror the opponent's previous move.
 - **Random**: Make decisions randomly, without considering the opponent's actions.
 - **Forgiving**: Start with cooperation, but forgive occasional defections.
