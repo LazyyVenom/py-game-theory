@@ -1,1 +1,1 @@
-# Writing The Logic without implementation on GUI (PyGame).
+# Writing The Logic without implementation on GUI (PyGame)
