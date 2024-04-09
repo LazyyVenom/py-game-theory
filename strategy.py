@@ -34,6 +34,7 @@ class Strategy:
 
         Returns:
             int: The next choice.
+            Prev_Results : [[1/0,1/0]] - [0th Strategy, 1st Strategy]
             (1 - Cooperate, 0 - Defect)
         """
         if not isinstance(prev_results, list):
@@ -42,11 +43,32 @@ class Strategy:
         return self.logic(prev_results, place)
 
 
+def score(results: list,place: int):
+    our_choice = results[place]
+    other_choice = results[int(not place)]
+
+    # print(f"Our Choice{our_choice} Other Choice {other_choice}")
+
+    if our_choice == other_choice == 1:
+        # return "Mutual Cooperation"
+        return 3
+
+    elif our_choice == other_choice == 0:
+        # return "Mutual Defection"
+        return 1
+
+    elif our_choice == 0 and other_choice == 1:
+        # return "You Defect"
+        return 5
+
+    else:
+        # return "They Defect"
+        return 0
+    
+
+#Strategies Declared Here
+
 def tit_for_tat_logic(prev_results,place):
-    """
-    Prev_Results : [[1/0,1/0]] - [0th Strategy, 1st Strategy]
-    (1 - Cooperate, 0 - Defect)
-    """
     if len(prev_results) == 0:
         return 1
     
@@ -56,13 +78,53 @@ def tit_for_tat_logic(prev_results,place):
 
 
 tit_for_tat = Strategy(
-    name = "Tit For Tat", st_id = "TFT",
-    desc = "Forgiving but firm, as it retaliates against defection but forgives and returns to cooperation if the opponent cooperates again.",
+    name = "Tit For Tat", 
+    st_id = "TFT",
+    desc = "Strategy: Start with cooperation and then mirror the opponent's previous move.\nDescription: Forgiving but firm, as it retaliates against defection but forgives and returns to cooperation if the opponent cooperates again.",
     strategy_type = "NICE",
     logic = tit_for_tat_logic
 )
 
-print(tit_for_tat.name)
-print(tit_for_tat.st_id)
-print(tit_for_tat.desc)
-print(tit_for_tat.strategy_type)
+
+def win_stay_lose_shift_logic(prev_results,place) -> int:
+    if len(prev_results) == 0:
+        return 1
+
+    last_score = score(prev_results[-1],place)
+
+    if last_score < 3:
+        return int(not prev_results[-1][place])
+    
+    else:
+        return prev_results[-1][place]
+
+
+win_stay_lose_shift = Strategy(
+    name = "Win Stay Lose Shift",
+    st_id = "WSLS",
+    desc = "Strategy: Start with cooperation. Continue cooperating as long as you win or draw; switch to defection if you lose.\nDescription: Reactive and adaptive, adjusting based on the outcome of previous interactions.",
+    strategy_type = "NICE",
+    logic = win_stay_lose_shift_logic
+)
+
+
+def win_stay_lose_shift_logic(prev_results,place) -> int:
+    if len(prev_results) == 0:
+        return 1
+
+    last_score = score(prev_results[-1],place)
+
+    if last_score < 3:
+        return int(not prev_results[-1][place])
+    
+    else:
+        return prev_results[-1][place]
+
+
+win_stay_lose_shift = Strategy(
+    name = "Win Stay Lose Shift",
+    st_id = "WSLS",
+    desc = "Strategy: Start with cooperation. Continue cooperating as long as you win or draw; switch to defection if you lose.\nDescription: Reactive and adaptive, adjusting based on the outcome of previous interactions.",
+    strategy_type = "NICE",
+    logic = win_stay_lose_shift_logic
+)
