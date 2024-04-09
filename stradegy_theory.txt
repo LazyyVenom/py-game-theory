@@ -45,3 +45,7 @@
 12. **Defector**:
     - Strategy: Always defect regardless of the opponent's move.
     - Description: Maximizes personal payoff but often leads to mutual defection and lower overall payoffs in repeated interactions.
+
+13. **Tester**:
+    - Strategy: Tester
+    - Description: Tester
