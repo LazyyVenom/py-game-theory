@@ -47,5 +47,5 @@
     - Description: Maximizes personal payoff but often leads to mutual defection and lower overall payoffs in repeated interactions.
 
 13. **Tester**:
-    - Strategy: Tester
-    - Description: Tester
+    - Strategy: Defects to check how opponent reacts and tries taking advantage of them.
+    - Description: Tests opponents based on reaction.
