@@ -93,7 +93,7 @@ def win_stay_lose_shift_logic(prev_results,place) -> int:
     last_score = score(prev_results[-1],place)
 
     if last_score == 0:
-        return int(not prev_results[-1][place])
+        return int(not prev_results[-1][place]) 
     
     else:
         return prev_results[-1][place]
