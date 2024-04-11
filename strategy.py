@@ -260,7 +260,20 @@ cooperator = Strategy(
     name = "Cooperator", 
     st_id = "COP",
     desc = "Strategy: Always cooperate regardless of the opponent's move.\nDescription: Maintains cooperation and can exploit opponents who defect in the long run.",
-    strategy_type = "NASTY",
+    strategy_type = "NICE",
     logic = cooperator_logic
+)
+
+
+def defector_logic(prev_results,place):
+    return 0
+
+
+defector = Strategy(
+    name = "Defector", 
+    st_id = "DEF",
+    desc = "Strategy: Always defect regardless of the opponent's move.\nDescription: Maximizes personal payoff but often leads to mutual defection and lower overall payoffs in repeated interactions.",
+    strategy_type = "NASTY",
+    logic = defector_logic
 )
 
