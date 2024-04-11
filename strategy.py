@@ -129,7 +129,7 @@ def pavlov_logic(prev_results,place) -> int:
 
 pavlov = Strategy(
     name = "Pavlov",
-    st_id = "pav",
+    st_id = "PAV",
     desc = "Strategy: Start with cooperation. Keep the same action if it resulted in the highest payoff in the previous round; switch actions otherwise.\nDescription: Reinforces successful strategies while abandoning unsuccessful ones, promoting stability.",
     strategy_type = "NICE",
     logic = pavlov_logic
@@ -142,7 +142,7 @@ def random_logic(prev_results=[],place=0) -> int:
 
 random_st = Strategy(
     name = "Random",
-    st_id = "ran",
+    st_id = "RAN",
     desc = "Strategy: Choose cooperation or defection randomly, with equal probability, in each round.\nDescription: Introduces unpredictability into the game, sometimes exploiting overly deterministic opponents.",
     strategy_type = "UNKNOWN",
     logic = random_logic
@@ -153,24 +153,17 @@ def grim_trigger_logic(prev_results,place) -> int:
     if len(prev_results) == 0:
         return 1
 
-    last_score = score(prev_results[-1],place)
-
-    if prev_results[-1][place] == 1:
-        if last_score == 5:
-            return 1
-        return 0
-    
-    else:
-        if last_score == 0:
-            return 1
-        else:
+    for res in prev_results:
+        if res[int(not place)] == 0:
             return 0
+    
+    return 1
 
 
-pavlov = Strategy(
-    name = "Pavlov",
-    st_id = "pav",
-    desc = "Strategy: Start with cooperation. Keep the same action if it resulted in the highest payoff in the previous round; switch actions otherwise.\nDescription: Reinforces successful strategies while abandoning unsuccessful ones, promoting stability.",
+grim_trigger = Strategy(
+    name = "Grim Trigger",
+    st_id = "GRM",
+    desc = "Strategy: Start with cooperation and continue cooperating unless the opponent defects; switch to defection permanently if the opponent defects.\nDescription: Punishes defection severely, promoting long-term cooperation.",
     strategy_type = "NICE",
-    logic = pavlov_logic
+    logic = grim_trigger_logic
 )
