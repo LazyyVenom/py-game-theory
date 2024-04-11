@@ -187,4 +187,27 @@ tit_for_2_tat = Strategy(
     logic = tit_for_2_tat_logic
 )
 
-print(tit_for_2_tat.giveNextChoice([[0,1],[1,1]],1))
+
+def soft_tit_for_tat_logic(prev_results,place):
+    if len(prev_results) == 0:
+        return 1
+    
+    error_flag = 1 if random.random() > 0.8 else 0
+
+    last_result = prev_results[-1]
+
+    if error_flag:
+        return int(not last_result[int(not place)])
+
+    return last_result[1] if place == 0 else last_result[0]
+
+
+soft_tit_for_tat = Strategy(
+    name = "Soft Tit For Tat", 
+    st_id = "STFT",
+    desc = "Strategy: Mimic the opponent's previous move, but with a small probability of error.\nDescription: Introduces noise into the decision-making process, making it less predictable.",
+    strategy_type = "NICE",
+    logic = soft_tit_for_tat_logic
+)
+
+
