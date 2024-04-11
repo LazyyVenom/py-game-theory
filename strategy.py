@@ -277,3 +277,24 @@ defector = Strategy(
     logic = defector_logic
 )
 
+
+def tester_logic(prev_results,place):
+    if len(prev_results) % 3 == 0:
+        return 0
+
+    if len(prev_results) > 3:
+        check = prev_results[3][int(not place)]
+
+        if check:
+            return 0
+        else:
+            return 1
+
+
+tester = Strategy(
+    name = "Tester", 
+    st_id = "TES",
+    desc = "Strategy: Defects to check how opponent reacts and tries taking advantage of them.\nDescription: Tests opponents based on reaction.",
+    strategy_type = "NASTY",
+    logic = tester_logic
+)
