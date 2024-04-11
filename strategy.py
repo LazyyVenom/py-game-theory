@@ -31,7 +31,7 @@ class Strategy:
         Calculates the next choice based on the previous results.
 
         Args:
-            prev_results (List[int]): List of previous results.
+            prev_results (List[list[int]]): List of previous results.
 
         Returns:
             int: The next choice.
@@ -167,3 +167,24 @@ grim_trigger = Strategy(
     strategy_type = "NICE",
     logic = grim_trigger_logic
 )
+
+
+def tit_for_2_tat_logic(prev_results,place):
+    if len(prev_results) < 2:
+        return 1
+    
+    last_result = prev_results[-1]
+    sec_last_result = prev_results[-2]
+
+    return 0 if last_result[int(not place)] == 0 and sec_last_result[int(not place)] == 0 else 1
+
+
+tit_for_2_tat = Strategy(
+    name = "Tit For Two Tat", 
+    st_id = "TFTT",
+    desc = "Strategy: Cooperate unless the opponent defects twice in a row.\nDescription: More forgiving than TFT, allowing for occasional mistakes by the opponent without triggering retaliation.",
+    strategy_type = "NICE",
+    logic = tit_for_2_tat_logic
+)
+
+print(tit_for_2_tat.giveNextChoice([[0,1],[1,1]],1))
