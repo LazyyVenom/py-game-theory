@@ -92,7 +92,7 @@ def win_stay_lose_shift_logic(prev_results,place) -> int:
 
     last_score = score(prev_results[-1],place)
 
-    if last_score < 3:
+    if last_score == 0:
         return int(not prev_results[-1][place])
     
     else:
@@ -108,23 +108,28 @@ win_stay_lose_shift = Strategy(
 )
 
 
-def win_stay_lose_shift_logic(prev_results,place) -> int:
+def pavlov_logic(prev_results,place) -> int:
     if len(prev_results) == 0:
         return 1
 
     last_score = score(prev_results[-1],place)
 
-    if last_score < 3:
-        return int(not prev_results[-1][place])
+    if prev_results[-1][place] == 1:
+        if last_score == 5:
+            return 1
+        return 0
     
     else:
-        return prev_results[-1][place]
+        if last_score == 0:
+            return 1
+        else:
+            return 0
 
 
-win_stay_lose_shift = Strategy(
-    name = "Win Stay Lose Shift",
-    st_id = "WSLS",
-    desc = "Strategy: Start with cooperation. Continue cooperating as long as you win or draw; switch to defection if you lose.\nDescription: Reactive and adaptive, adjusting based on the outcome of previous interactions.",
+pavlov = Strategy(
+    name = "Pavlov",
+    st_id = "pav",
+    desc = "Strategy: Start with cooperation. Keep the same action if it resulted in the highest payoff in the previous round; switch actions otherwise.\nDescription: Reinforces successful strategies while abandoning unsuccessful ones, promoting stability.",
     strategy_type = "NICE",
-    logic = win_stay_lose_shift_logic
+    logic = pavlov_logic
 )
