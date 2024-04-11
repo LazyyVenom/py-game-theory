@@ -294,7 +294,7 @@ def tester_logic(prev_results,place):
 tester = Strategy(
     name = "Tester", 
     st_id = "TES",
-    desc = "Strategy: Defects to check how opponent reacts and tries taking advantage of them.\nDescription: Tests opponents based on reaction.",
+    desc = "Strategy: Defects to check how opponent reacts and tries taking advantage of them.\nDescription: Tests opponents based on reaction. And Defects on Every 3rd Turn",
     strategy_type = "NASTY",
     logic = tester_logic
 )
