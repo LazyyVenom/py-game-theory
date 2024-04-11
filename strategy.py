@@ -250,3 +250,17 @@ reverse_tit_for_tat = Strategy(
     strategy_type = "NASTY",
     logic = reverse_tit_for_tat_logic
 )
+
+
+def cooperator_logic(prev_results,place):
+    return 1
+
+
+cooperator = Strategy(
+    name = "Cooperator", 
+    st_id = "COP",
+    desc = "Strategy: Always cooperate regardless of the opponent's move.\nDescription: Maintains cooperation and can exploit opponents who defect in the long run.",
+    strategy_type = "NASTY",
+    logic = cooperator_logic
+)
+
