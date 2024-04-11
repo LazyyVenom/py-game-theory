@@ -211,3 +211,24 @@ soft_tit_for_tat = Strategy(
 )
 
 
+def forgiving_tit_for_tat_logic(prev_results,place):
+    if len(prev_results) == 0:
+        return 1
+    
+    forgiving_flag = 1 if random.random() > 0.8 else 0
+
+    last_result = prev_results[-1]
+
+    if forgiving_flag and prev_results[-1][int(not place)] == 0:
+        return 1
+
+    return last_result[1] if place == 0 else last_result[0]
+
+
+forgiving_tit_for_tat = Strategy(
+    name = "Forgiving Tit For Tat", 
+    st_id = "FTFT",
+    desc = "Strategy: Occasionally forgive the opponent's defection without immediate cooperation in return.\nDescription: Similar to TFT but with occasional unconditional cooperation, promoting flexibility.",
+    strategy_type = "NICE",
+    logic = forgiving_tit_for_tat_logic
+)
