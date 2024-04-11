@@ -34,18 +34,14 @@
    - Strategy: Start with defection and then mimic the opponent's previous move.
    - Description: Opposite of TFT, adjusting based on the opponent's previous move.
 
-10. **Pavlov-DS** (Deterministic Selection):
-    - Strategy: Similar to Pavlov, but with a deterministic strategy selection based on the highest payoff in the previous round.
-    - Description: Reinforces successful strategies deterministically, promoting stability.
-
-11. **Cooperator**:
+10. **Cooperator**:
     - Strategy: Always cooperate regardless of the opponent's move.
     - Description: Maintains cooperation and can exploit opponents who defect in the long run.
 
-12. **Defector**:
+11. **Defector**:
     - Strategy: Always defect regardless of the opponent's move.
     - Description: Maximizes personal payoff but often leads to mutual defection and lower overall payoffs in repeated interactions.
 
-13. **Tester**:
+12. **Tester**:
     - Strategy: Defects to check how opponent reacts and tries taking advantage of them.
     - Description: Tests opponents based on reaction.

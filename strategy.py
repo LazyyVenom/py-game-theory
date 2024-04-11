@@ -232,3 +232,21 @@ forgiving_tit_for_tat = Strategy(
     strategy_type = "NICE",
     logic = forgiving_tit_for_tat_logic
 )
+
+
+def reverse_tit_for_tat_logic(prev_results,place):
+    if len(prev_results) == 0:
+        return 0
+    
+    last_result = prev_results[-1]
+
+    return last_result[1] if place == 0 else last_result[0]
+
+
+reverse_tit_for_tat = Strategy(
+    name = "Reverse Tit For Tat", 
+    st_id = "RTFT",
+    desc = "Strategy: Start with defection and then mimic the opponent's previous move.\nDescription: Opposite of TFT, adjusting based on the opponent's previous move.",
+    strategy_type = "NASTY",
+    logic = reverse_tit_for_tat_logic
+)
