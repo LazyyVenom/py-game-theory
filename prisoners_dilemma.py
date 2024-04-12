@@ -11,12 +11,12 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Prisoner's Dilemma")
 
 # Colors
-WHITE = (119, 113, 238)
-BLACK = (69, 60, 103)
+PRIMARY = (119, 113, 238)
+SECONDARY = (69, 60, 103)
 BUTTON_COLOR = (70, 194, 203)
 BUTTON_HOVER_COLOR = (242, 247, 161)
 BUTTON_BORDER_COLOR = (69, 60, 103)
-TEXT_COLOR = BLACK
+TEXT_COLOR = SECONDARY
 
 # Fonts
 font = pygame.font.Font(None, 50)
@@ -32,7 +32,7 @@ def draw_text(text, font, color, x, y):
 # Function to display the menu
 def main_menu():
     while True:
-        screen.fill(WHITE)
+        screen.fill(PRIMARY)
         draw_text("Prisoners Dilemma", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 90)
         draw_text("Simulator", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 150)
 
@@ -84,7 +84,7 @@ def main_menu():
 def show_instructions():
     running = True
     while running:
-        screen.fill(WHITE)
+        screen.fill(PRIMARY)
         draw_text("Instructions", font, TEXT_COLOR, screen_width // 2, 50)
         
         # Display the instructions content
