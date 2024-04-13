@@ -18,6 +18,8 @@ BUTTON_COLOR = (70, 194, 203)
 BUTTON_HOVER_COLOR = (242, 247, 161)
 BUTTON_BORDER_COLOR = (69, 60, 103)
 TEXT_COLOR = SECONDARY
+INSTRUCTION_COLOR = SECONDARY
+INSTRUCTION_HEADING_COLOR = (242, 247, 161)
 
 # Fonts
 font = pygame.font.Font(None, 50)
@@ -86,11 +88,10 @@ def show_theory():
     scroll_pos = 0 
     scroll_speed = 1  
     instruction_text = [
-        "Welcome to the Theory page!",
-        "",
-        "Here you can add your Simulation content.",
-        "Use arrow keys to move, space to jump, etc.",
-        ""
+        {"NAME":strategy.name,
+         "ID":strategy.st_id,
+         "DESCRIPTION":strategy.desc 
+        } for strategy in [strategies[0]] 
     ]
 
     
@@ -99,8 +100,13 @@ def show_theory():
         draw_text("Theory", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
 
         y_offset = 100
-        for i, text in enumerate(instruction_text[scroll_pos:]):
-            draw_text(text, instruction_font, TEXT_COLOR, screen_width // 2, y_offset)
+        for i, strategy in enumerate(instruction_text[scroll_pos:]):
+            # for key, value in strategy.items():
+            draw_text("NAME", instruction_font, INSTRUCTION_HEADING_COLOR, 50, y_offset)
+            draw_text("ID", instruction_font, INSTRUCTION_HEADING_COLOR, 30, y_offset+30)
+            draw_text("DESCRIPTION", instruction_font, INSTRUCTION_HEADING_COLOR, 90, y_offset+60)
+            
+            # draw_text(value, instruction_font, INSTRUCTION_COLOR, 200, y_offset)
             y_offset += 30
             if y_offset > screen_height - 30:
                 break
@@ -111,7 +117,7 @@ def show_theory():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-                
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
