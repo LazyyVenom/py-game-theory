@@ -298,3 +298,18 @@ tester = Strategy(
     strategy_type = "NASTY",
     logic = tester_logic
 )
+
+strategies = [
+    tit_for_tat,
+    win_stay_lose_shift,
+    pavlov,
+    random_st,
+    grim_trigger,
+    tit_for_2_tat,
+    soft_tit_for_tat,
+    forgiving_tit_for_tat,
+    reverse_tit_for_tat,
+    cooperator,
+    defector,
+    tester
+    ]
