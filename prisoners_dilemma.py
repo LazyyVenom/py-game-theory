@@ -1,5 +1,6 @@
 import pygame
 import sys
+from strategy import strategies
 
 # Initialize Pygame
 pygame.init()
@@ -38,7 +39,6 @@ def main_menu():
 
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
-        # Buttons
         buttons = [
             {"text": "Tournament", "rect": pygame.Rect(screen_width // 2 - 150, 200, 300, 60)},
             {"text": "Simulation", "rect": pygame.Rect(screen_width // 2 - 150, 300, 300, 60)},
@@ -46,14 +46,13 @@ def main_menu():
             {"text": "Quit", "rect": pygame.Rect(screen_width // 2 - 150, 500, 300, 60)}
         ]
 
-        # Highlight the button when mouse is over it
         for button in buttons:
             if button["rect"].collidepoint((mouse_x, mouse_y)):
                 pygame.draw.rect(screen, BUTTON_HOVER_COLOR, button["rect"])
-                pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 3)  # Add border
+                pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 3) 
             else:
                 pygame.draw.rect(screen, BUTTON_COLOR, button["rect"])
-                pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 3)  # Add border
+                pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 3)  
             draw_text(button["text"], font, TEXT_COLOR, button["rect"].centerx, button["rect"].centery)
 
         for event in pygame.event.get():
@@ -84,58 +83,26 @@ def main_menu():
 # Function to display the Simulation
 def show_theory():
     running = True
-    scroll_pos = 0  # Initial scroll position
-    scroll_speed = 1  # Adjust scroll speed as needed
+    scroll_pos = 0 
+    scroll_speed = 1  
     instruction_text = [
         "Welcome to the Theory page!",
         "",
         "Here you can add your Simulation content.",
         "Use arrow keys to move, space to jump, etc.",
-        "",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac justo vitae augue vehicula venenatis. Duis elementum id metus vel eleifend. Nam eget magna convallis, gravida magna id, lobortis turpis. Fusce vehicula turpis non neque venenatis, ac feugiat ex blandit. Nullam consequat, libero et tincidunt ullamcorper, libero arcu tincidunt sapien, ut mattis erat odio nec nisl. Ut ac congue risus, in facilisis orci. Nulla in urna et eros ullamcorper vestibulum eget vel mi. Phasellus et quam in nunc interdum eleifend. Aenean molestie, sapien in volutpat viverra, dui enim congue justo, vitae varius turpis ligula id felis. Sed vehicula aliquet quam, ac dapibus lorem pellentesque nec. Sed nec dolor vitae urna tempor tempus non vel magna. Nullam pulvinar sit amet enim eu viverra. Morbi sed dapibus elit.",
-        "",
-        "Welcome to the Theory page!",
-        "",
-        "Here you can add your Simulation content.",
-        "Use arrow keys to move, space to jump, etc.",
-        "",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac justo vitae augue vehicula venenatis. Duis elementum id metus vel eleifend. Nam eget magna convallis, gravida magna id, lobortis turpis. Fusce vehicula turpis non neque venenatis, ac feugiat ex blandit. Nullam consequat, libero et tincidunt ullamcorper, libero arcu tincidunt sapien, ut mattis erat odio nec nisl. Ut ac congue risus, in facilisis orci. Nulla in urna et eros ullamcorper vestibulum eget vel mi. Phasellus et quam in nunc interdum eleifend. Aenean molestie, sapien in volutpat viverra, dui enim congue justo, vitae varius turpis ligula id felis. Sed vehicula aliquet quam, ac dapibus lorem pellentesque nec. Sed nec dolor vitae urna tempor tempus non vel magna. Nullam pulvinar sit amet enim eu viverra. Morbi sed dapibus elit.",
-        "",
-        "Welcome to the Theory page!",
-        "",
-        "Here you can add your Simulation content.",
-        "Use arrow keys to move, space to jump, etc.",
-        "",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac justo vitae augue vehicula venenatis. Duis elementum id metus vel eleifend. Nam eget magna convallis, gravida magna id, lobortis turpis. Fusce vehicula turpis non neque venenatis, ac feugiat ex blandit. Nullam consequat, libero et tincidunt ullamcorper, libero arcu tincidunt sapien, ut mattis erat odio nec nisl. Ut ac congue risus, in facilisis orci. Nulla in urna et eros ullamcorper vestibulum eget vel mi. Phasellus et quam in nunc interdum eleifend. Aenean molestie, sapien in volutpat viverra, dui enim congue justo, vitae varius turpis ligula id felis. Sed vehicula aliquet quam, ac dapibus lorem pellentesque nec. Sed nec dolor vitae urna tempor tempus non vel magna. Nullam pulvinar sit amet enim eu viverra. Morbi sed dapibus elit.",
-        "",
-        "Welcome to the Theory page!",
-        "",
-        "Here you can add your Simulation content.",
-        "Use arrow keys to move, space to jump, etc.",
-        "",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac justo vitae augue vehicula venenatis. Duis elementum id metus vel eleifend. Nam eget magna convallis, gravida magna id, lobortis turpis. Fusce vehicula turpis non neque venenatis, ac feugiat ex blandit. Nullam consequat, libero et tincidunt ullamcorper, libero arcu tincidunt sapien, ut mattis erat odio nec nisl. Ut ac congue risus, in facilisis orci. Nulla in urna et eros ullamcorper vestibulum eget vel mi. Phasellus et quam in nunc interdum eleifend. Aenean molestie, sapien in volutpat viverra, dui enim congue justo, vitae varius turpis ligula id felis. Sed vehicula aliquet quam, ac dapibus lorem pellentesque nec. Sed nec dolor vitae urna tempor tempus non vel magna. Nullam pulvinar sit amet enim eu viverra. Morbi sed dapibus elit.",
-        "",
-        "Welcome to the Theory page!",
-        "",
-        "Here you can add your Simulation content.",
-        "Use arrow keys to move, space to jump, etc.",
-        "",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac justo vitae augue vehicula venenatis. Duis elementum id metus vel eleifend. Nam eget magna convallis, gravida magna id, lobortis turpis. Fusce vehicula turpis non neque venenatis, ac feugiat ex blandit. Nullam consequat, libero et tincidunt ullamcorper, libero arcu tincidunt sapien, ut mattis erat odio nec nisl. Ut ac congue risus, in facilisis orci. Nulla in urna et eros ullamcorper vestibulum eget vel mi. Phasellus et quam in nunc interdum eleifend. Aenean molestie, sapien in volutpat viverra, dui enim congue justo, vitae varius turpis ligula id felis. Sed vehicula aliquet quam, ac dapibus lorem pellentesque nec. Sed nec dolor vitae urna tempor tempus non vel magna. Nullam pulvinar sit amet enim eu viverra. Morbi sed dapibus elit.",
-        "",
-        "Press 'Esc' to return to the main menu."
+        ""
     ]
 
     
     while running:
         screen.fill(PRIMARY)
-        draw_text("Theory", font, TEXT_COLOR, screen_width // 2, 50)
+        draw_text("Theory", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
 
-        # Display the Simulation content
-        y_offset = 150
+        y_offset = 100
         for i, text in enumerate(instruction_text[scroll_pos:]):
             draw_text(text, instruction_font, TEXT_COLOR, screen_width // 2, y_offset)
             y_offset += 30
-            if y_offset > screen_height - 30:  # Check if text goes beyond screen
+            if y_offset > screen_height - 30:
                 break
 
         pygame.display.update()
@@ -144,21 +111,22 @@ def show_theory():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+                
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 elif event.key == pygame.K_UP:
                     if scroll_pos > 0:
-                        scroll_pos -= 1  # Decrease scroll position
+                        scroll_pos -= 1  
                 elif event.key == pygame.K_DOWN:
                     if scroll_pos < len(instruction_text) - (screen_height - 180) // 30:
-                        scroll_pos += 1  # Increase scroll position
+                        scroll_pos += 1 
+
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 4:  # Scroll up
+                if event.button == 4:
                     scroll_pos -= scroll_speed
-                elif event.button == 5:  # Scroll down
+                elif event.button == 5: 
                     scroll_pos += scroll_speed
 
-# Run the main menu
 if __name__ == '__main__':
     main_menu()
