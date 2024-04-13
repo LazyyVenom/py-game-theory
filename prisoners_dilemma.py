@@ -36,7 +36,7 @@ def draw_text(text, font, color, x, y):
 def main_menu():
     while True:
         screen.fill(PRIMARY)
-        draw_text("Prisoners Dilemma", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 90)
+        draw_text("Prisoners Dilemma", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 80)
         draw_text("Simulator", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 150)
 
         mouse_x, mouse_y = pygame.mouse.get_pos()
