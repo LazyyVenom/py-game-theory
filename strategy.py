@@ -163,7 +163,7 @@ def grim_trigger_logic(prev_results,place) -> int:
 grim_trigger = Strategy(
     name = "Grim Trigger",
     st_id = "GRM",
-    desc = "Strategy: Start with cooperation and continue cooperating unless the opponent defects; switch to defection permanently if the opponent defects.\nDescription: Punishes defection severely, promoting long-term cooperation.",
+    desc = "Strategy: Start with cooperation and continue cooperating unless the opponent defects switch to defection permanently if the opponent defects.\nDescription: Punishes defection severely, promoting long-term cooperation.",
     strategy_type = "NICE",
     logic = grim_trigger_logic
 )

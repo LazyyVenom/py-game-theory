@@ -121,16 +121,16 @@ def show_theory():
                     pygame.draw.rect(screen, KIND_OF_YELLOW, (50, y_offset, 1100, 200))
                     pygame.draw.rect(screen, SECONDARY, (50, y_offset, 1100, 200),8)
 
-            draw_text("ID: ",instruction_font,SECONDARY,310,y_offset+40)
-            draw_text(strategy["ID"],instruction_font,(0,0,0),380,y_offset+40)
+            # draw_text("ID: ",instruction_font,SECONDARY,310,y_offset+40)
+            # draw_text(strategy["ID"],instruction_font,(0,0,0),380,y_offset+40)
             
-            draw_text("NAME: ",instruction_font,SECONDARY,335,y_offset+80)
-            draw_text(strategy["NAME"],instruction_font,(0,0,0),420+len(strategy["NAME"])*5,y_offset+80)
+            # draw_text("NAME: ",instruction_font,SECONDARY,335,y_offset+80)
+            draw_text(strategy["NAME"],pygame.font.Font(None, 45),(0,0,0),screen_width//2+35,y_offset+50)
             
-            draw_text("DESC: ",instruction_font,SECONDARY,332,y_offset+120)
+            # draw_text("DESC: ",instruction_font,SECONDARY,332,y_offset+120)
             desc = strategy["DESCRIPTION"].split("\n")[0].replace("Strategy","").replace(":","").split(" ")
-            draw_text(" ".join(desc[:len(desc)//2]),pygame.font.Font(None, 30),(0,0,0),580,y_offset+120)
-            draw_text(" ".join(desc[len(desc)//2:]),pygame.font.Font(None, 30),(0,0,0),580,y_offset+160)
+            draw_text(" ".join(desc[:len(desc)//2]),pygame.font.Font(None, 31),SECONDARY,screen_width//2 + 50,y_offset+100)
+            draw_text(" ".join(desc[len(desc)//2:]),pygame.font.Font(None, 31),SECONDARY,screen_width//2 + 50,y_offset+140)
             # draw_text(strategy["DESCRIPTION"].split("\n")[1],pygame.font.Font(None, 30),(0,0,0),380,y_offset+160)
 
             image_path = strategy["IMAGE_PATH"]
