@@ -1,13 +1,14 @@
 import pygame
 import sys
 from strategy import strategies
+import os
 
 # Initialize Pygame
 pygame.init()
 
 # Set up the screen
-screen_width = 800
-screen_height = 600
+screen_width = 1200
+screen_height = 750
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Prisoner's Dilemma")
 
@@ -36,26 +37,28 @@ def draw_text(text, font, color, x, y):
 def main_menu():
     while True:
         screen.fill(PRIMARY)
-        draw_text("Prisoners Dilemma", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 80)
-        draw_text("Simulator", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 150)
+        draw_text("Prisoners Dilemma".upper(), pygame.font.Font(None, 110), TEXT_COLOR, screen_width // 2, 100)
+        draw_text("Simulator".upper(), pygame.font.Font(None, 110), TEXT_COLOR, screen_width // 2, 170)
 
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
         buttons = [
-            {"text": "Tournament", "rect": pygame.Rect(screen_width // 2 - 150, 200, 300, 60)},
-            {"text": "Simulation", "rect": pygame.Rect(screen_width // 2 - 150, 300, 300, 60)},
-            {"text": "Theory", "rect": pygame.Rect(screen_width // 2 - 150, 400, 300, 60)},
-            {"text": "Quit", "rect": pygame.Rect(screen_width // 2 - 150, 500, 300, 60)}
+            {"text": "Tournament", "rect": pygame.Rect(screen_width // 2 - 200, 260, 400, 80)},
+            {"text": "Simulation", "rect": pygame.Rect(screen_width // 2 - 200, 360, 400, 80)},
+            {"text": "Theory", "rect": pygame.Rect(screen_width // 2 - 200, 460, 400, 80)},
+            {"text": "Quit", "rect": pygame.Rect(screen_width // 2 - 200, 560, 400, 80)}
         ]
 
         for button in buttons:
             if button["rect"].collidepoint((mouse_x, mouse_y)):
                 pygame.draw.rect(screen, BUTTON_HOVER_COLOR, button["rect"])
-                pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 3) 
+                pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 6) 
             else:
                 pygame.draw.rect(screen, BUTTON_COLOR, button["rect"])
-                pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 3)  
-            draw_text(button["text"], font, TEXT_COLOR, button["rect"].centerx, button["rect"].centery)
+                pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 6)  
+            draw_text(button["text"], pygame.font.Font(None, 60), TEXT_COLOR, button["rect"].centerx, button["rect"].centery)
+
+        draw_text("Created Anubhav Choubey", pygame.font.Font(None, 40), BUTTON_HOVER_COLOR, 970, 720)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -75,7 +78,6 @@ def main_menu():
                             show_theory()
                             # Show theory
                             # Replace this with your theory display code
-                            print("Showing theory...")
                         elif button["text"] == "Quit":
                             pygame.quit()
                             sys.exit()
@@ -88,25 +90,29 @@ def show_theory():
     scroll_pos = 0 
     scroll_speed = 1  
     instruction_text = [
-        {"NAME":strategy.name,
-         "ID":strategy.st_id,
-         "DESCRIPTION":strategy.desc 
+        {"NAME": strategy.name,
+         "ID": strategy.st_id,
+         "DESCRIPTION": strategy.desc,
+         "IMAGE_PATH": os.path.join("images", f"{strategy.st_id}.png")
         } for strategy in [strategies[0]] 
     ]
 
-    
     while running:
         screen.fill(PRIMARY)
         draw_text("Theory", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
 
         y_offset = 100
         for i, strategy in enumerate(instruction_text[scroll_pos:]):
-            # for key, value in strategy.items():
-            draw_text("NAME", instruction_font, INSTRUCTION_HEADING_COLOR, 50, y_offset)
-            draw_text("ID", instruction_font, INSTRUCTION_HEADING_COLOR, 30, y_offset+30)
-            draw_text("DESCRIPTION", instruction_font, INSTRUCTION_HEADING_COLOR, 90, y_offset+60)
+            draw_text(strategy["NAME"], instruction_font, INSTRUCTION_HEADING_COLOR, 50, y_offset)
+            draw_text(strategy["ID"], instruction_font, INSTRUCTION_HEADING_COLOR, 30, y_offset+30)
+            draw_text(strategy["DESCRIPTION"], instruction_font, INSTRUCTION_HEADING_COLOR, 90, y_offset+60)
             
-            # draw_text(value, instruction_font, INSTRUCTION_COLOR, 200, y_offset)
+            # Load and display image if it exists
+            image_path = strategy["IMAGE_PATH"]
+            if os.path.exists(image_path):
+                image = pygame.image.load(image_path)
+                screen.blit(image, (400, y_offset))  # Adjust the position as needed
+            
             y_offset += 30
             if y_offset > screen_height - 30:
                 break
