@@ -19,12 +19,55 @@ Welcome to the Prisoner's Dilemma simulation, where you'll immerse yourself in t
 6. **Iterate and Learn**: Experiment with different strategies, tweak parameters, and refine your understanding of strategic decision-making.
 
 ## Decision Strategies
-- **Tit-for-Tat**: Mirror the opponent's previous move after starting with cooperation.
-- **Random**: Make decisions randomly, adding an element of unpredictability.
-- **Forgiving**: Start cooperatively and occasionally forgive defections.
-- **Always Cooperate**: Maintain cooperation regardless of the opponent's actions.
-- **Always Defect**: Opt for defection in every round, prioritizing self-interest.
-- *Feel free to create and implement your own strategies!*
+
+### Tit-for-Tat (TFT)
+- **Strategy**: Start with cooperation and then mirror the opponent's previous move.
+- **Description**: Forgiving but firm, as it retaliates against defection but forgives and returns to cooperation if the opponent cooperates again.
+
+### Win-Stay, Lose-Shift (WSLS)
+- **Strategy**: Start with cooperation. Continue cooperating as long as you win or draw; switch to defection if you lose.
+- **Description**: Reactive and adaptive, adjusting based on the outcome of previous interactions.
+
+### Pavlov (or "Win-Stay, Lose-Switch")
+- **Strategy**: Start with cooperation. Keep the same action if it resulted in the highest payoff in the previous round; switch actions otherwise.
+- **Description**: Reinforces successful strategies while abandoning unsuccessful ones, promoting stability.
+
+### Random
+- **Strategy**: Choose cooperation or defection randomly, with equal probability, in each round.
+- **Description**: Introduces unpredictability into the game, sometimes exploiting overly deterministic opponents.
+
+### Grim Trigger
+- **Strategy**: Start with cooperation and continue cooperating unless the opponent defects; switch to defection permanently if the opponent defects.
+- **Description**: Punishes defection severely, promoting long-term cooperation.
+
+### Tit-for-Two-Tats (TFTT)
+- **Strategy**: Cooperate unless the opponent defects twice in a row.
+- **Description**: More forgiving than TFT, allowing for occasional mistakes by the opponent without triggering retaliation.
+
+### Soft Tit-for-Tat
+- **Strategy**: Mimic the opponent's previous move, but with a small probability of error.
+- **Description**: Introduces noise into the decision-making process, making it less predictable.
+
+### Forgiving Tit-for-Tat
+- **Strategy**: Occasionally forgive the opponent's defection without immediate cooperation in return.
+- **Description**: Similar to TFT but with occasional unconditional cooperation, promoting flexibility.
+
+### Reverse Tit-for-Tat
+- **Strategy**: Start with defection and then mimic the opponent's previous move.
+- **Description**: Opposite of TFT, adjusting based on the opponent's previous move.
+
+### Cooperator
+- **Strategy**: Always cooperate regardless of the opponent's move.
+- **Description**: Maintains cooperation and can exploit opponents who defect in the long run.
+
+### Defector
+- **Strategy**: Always defect regardless of the opponent's move.
+- **Description**: Maximizes personal payoff but often leads to mutual defection and lower overall payoffs in repeated interactions.
+
+### Tester
+- **Strategy**: Defects to check how opponent reacts and tries taking advantage of them.
+- **Description**: Tests opponents based on reaction.
+
 
 ## Future Improvements
 - **Advanced AI Models**: Develop sophisticated AI algorithms to simulate human-like decision-making.
