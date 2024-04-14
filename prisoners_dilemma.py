@@ -15,8 +15,8 @@ pygame.display.set_caption("Prisoner's Dilemma")
 # Colors
 PRIMARY = (119, 113, 238)
 SECONDARY = (69, 60, 103)
-BUTTON_COLOR = (70, 194, 203)
-BUTTON_HOVER_COLOR = (242, 247, 161)
+TER_BLUE = (70, 194, 203)
+KIND_OF_YELLOW = (242, 247, 161)
 BUTTON_BORDER_COLOR = (69, 60, 103)
 TEXT_COLOR = SECONDARY
 INSTRUCTION_COLOR = SECONDARY
@@ -51,14 +51,14 @@ def main_menu():
 
         for button in buttons:
             if button["rect"].collidepoint((mouse_x, mouse_y)):
-                pygame.draw.rect(screen, BUTTON_HOVER_COLOR, button["rect"])
+                pygame.draw.rect(screen, KIND_OF_YELLOW, button["rect"])
                 pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 6) 
             else:
-                pygame.draw.rect(screen, BUTTON_COLOR, button["rect"])
+                pygame.draw.rect(screen, TER_BLUE, button["rect"])
                 pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 6)  
             draw_text(button["text"], pygame.font.Font(None, 60), TEXT_COLOR, button["rect"].centerx, button["rect"].centery)
 
-        draw_text("Created Anubhav Choubey", pygame.font.Font(None, 40), BUTTON_HOVER_COLOR, 970, 720)
+        draw_text("Created Anubhav Choubey", pygame.font.Font(None, 40), KIND_OF_YELLOW, 970, 720)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -94,26 +94,47 @@ def show_theory():
          "ID": strategy.st_id,
          "DESCRIPTION": strategy.desc,
          "IMAGE_PATH": os.path.join("images", f"{strategy.st_id}.png")
-        } for strategy in [strategies[0]] 
+        } for strategy in strategies 
     ]
 
     while running:
         screen.fill(PRIMARY)
-        draw_text("Theory", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
+        draw_text("THEORY", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
 
         y_offset = 100
         for i, strategy in enumerate(instruction_text[scroll_pos:]):
-            draw_text(strategy["NAME"], instruction_font, INSTRUCTION_HEADING_COLOR, 50, y_offset)
-            draw_text(strategy["ID"], instruction_font, INSTRUCTION_HEADING_COLOR, 30, y_offset+30)
-            draw_text(strategy["DESCRIPTION"], instruction_font, INSTRUCTION_HEADING_COLOR, 90, y_offset+60)
+            if scroll_pos % 2 == 0:
+                if i % 2 == 0:
+                    pygame.draw.rect(screen, TER_BLUE, (50, y_offset, 1100, 200))
+                    pygame.draw.rect(screen, SECONDARY, (50, y_offset, 1100, 200),8)
+
+                else:
+                    pygame.draw.rect(screen, KIND_OF_YELLOW, (50, y_offset, 1100, 200))
+                    pygame.draw.rect(screen, SECONDARY, (50, y_offset, 1100, 200),8)
             
+            else:
+                if i % 2 != 0:
+                    pygame.draw.rect(screen, TER_BLUE, (50, y_offset, 1100, 200))
+                    pygame.draw.rect(screen, SECONDARY, (50, y_offset, 1100, 200),8)
+
+                else:
+                    pygame.draw.rect(screen, KIND_OF_YELLOW, (50, y_offset, 1100, 200))
+                    pygame.draw.rect(screen, SECONDARY, (50, y_offset, 1100, 200),8)
+
             # Load and display image if it exists
             image_path = strategy["IMAGE_PATH"]
             if os.path.exists(image_path):
                 image = pygame.image.load(image_path)
-                screen.blit(image, (400, y_offset))  # Adjust the position as needed
+                image = pygame.transform.scale(image, (200, 200))
+                screen.blit(image, (100, y_offset))  # Adjust the position as needed
             
-            y_offset += 30
+
+            # draw_text(strategy["NAME"], instruction_font, INSTRUCTION_HEADING_COLOR, 50, y_offset)
+            # draw_text(strategy["ID"], instruction_font, INSTRUCTION_HEADING_COLOR, 30, y_offset+30)
+            # draw_text(strategy["DESCRIPTION"], instruction_font, INSTRUCTION_HEADING_COLOR, 90, y_offset+60)
+            
+            
+            y_offset += 220
             if y_offset > screen_height - 30:
                 break
 
@@ -139,6 +160,9 @@ def show_theory():
                     scroll_pos -= scroll_speed
                 elif event.button == 5: 
                     scroll_pos += scroll_speed
+            
+            scroll_pos = max(scroll_pos,0)
+            scroll_pos = min(scroll_pos,10)
 
 if __name__ == '__main__':
     main_menu()
