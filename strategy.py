@@ -228,7 +228,7 @@ def forgiving_tit_for_tat_logic(prev_results,place):
 forgiving_tit_for_tat = Strategy(
     name = "Forgiving Tit For Tat", 
     st_id = "FTFT",
-    desc = "Strategy: Occasionally forgive the opponent's defection without immediate cooperation in return.\nDescription: Similar to TFT but with occasional unconditional cooperation, promoting flexibility.",
+    desc = "Strategy: Occasionally forgive the opponent's defection with immediate cooperation in return.\nDescription: Similar to TFT but with occasional unconditional cooperation, promoting flexibility.",
     strategy_type = "NICE",
     logic = forgiving_tit_for_tat_logic
 )

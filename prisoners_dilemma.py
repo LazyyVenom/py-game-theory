@@ -24,7 +24,7 @@ INSTRUCTION_HEADING_COLOR = (242, 247, 161)
 
 # Fonts
 font = pygame.font.Font(None, 50)
-instruction_font = pygame.font.Font(None, 30)
+instruction_font = pygame.font.Font(None, 40)
 
 # Function to draw text on the screen
 def draw_text(text, font, color, x, y):
@@ -121,12 +121,23 @@ def show_theory():
                     pygame.draw.rect(screen, KIND_OF_YELLOW, (50, y_offset, 1100, 200))
                     pygame.draw.rect(screen, SECONDARY, (50, y_offset, 1100, 200),8)
 
-            # Load and display image if it exists
+            draw_text("ID: ",instruction_font,SECONDARY,310,y_offset+40)
+            draw_text(strategy["ID"],instruction_font,(0,0,0),380,y_offset+40)
+            
+            draw_text("NAME: ",instruction_font,SECONDARY,335,y_offset+80)
+            draw_text(strategy["NAME"],instruction_font,(0,0,0),420+len(strategy["NAME"])*5,y_offset+80)
+            
+            draw_text("DESC: ",instruction_font,SECONDARY,332,y_offset+120)
+            desc = strategy["DESCRIPTION"].split("\n")[0].replace("Strategy","").replace(":","").split(" ")
+            draw_text(" ".join(desc[:len(desc)//2]),pygame.font.Font(None, 30),(0,0,0),580,y_offset+120)
+            draw_text(" ".join(desc[len(desc)//2:]),pygame.font.Font(None, 30),(0,0,0),580,y_offset+160)
+            # draw_text(strategy["DESCRIPTION"].split("\n")[1],pygame.font.Font(None, 30),(0,0,0),380,y_offset+160)
+
             image_path = strategy["IMAGE_PATH"]
             if os.path.exists(image_path):
                 image = pygame.image.load(image_path)
                 image = pygame.transform.scale(image, (200, 200))
-                screen.blit(image, (100, y_offset))  # Adjust the position as needed
+                screen.blit(image, (80, y_offset))
             
 
             # draw_text(strategy["NAME"], instruction_font, INSTRUCTION_HEADING_COLOR, 50, y_offset)
