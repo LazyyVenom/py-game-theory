@@ -26,7 +26,6 @@ INSTRUCTION_HEADING_COLOR = (242, 247, 161)
 font = pygame.font.Font(None, 50)
 instruction_font = pygame.font.Font(None, 40)
 
-# Function to draw text on the screen
 def draw_text(text, font, color, x, y):
     text_surface = font.render(text, True, color)
     text_rect = text_surface.get_rect()
