@@ -220,6 +220,11 @@ def tournament():
         text_surface = font.render(number_of_rounds, True, SECONDARY)
         screen.blit(text_surface, (776, 411))
 
+        
+        pygame.draw.rect(screen,SECONDARY,(630,670,540,50))
+        pygame.draw.rect(screen,KIND_OF_YELLOW,(630,670,540,50),5)
+        draw_text("START",pygame.font.Font(None,57),KIND_OF_YELLOW,900,695)
+
         y_offset = box_y_initial
 
         for i,strategy in enumerate(strategies):
