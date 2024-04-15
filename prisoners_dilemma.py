@@ -42,10 +42,10 @@ def main_menu():
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
         buttons = [
-            {"text": "Tournament", "rect": pygame.Rect(screen_width // 2 - 242, 260, 500, 80)},
-            {"text": "Simulation", "rect": pygame.Rect(screen_width // 2 - 242, 360, 500, 80)},
-            {"text": "Strategies Theory", "rect": pygame.Rect(screen_width // 2 - 242, 460, 500, 80)},
-            {"text": "Quit", "rect": pygame.Rect(screen_width // 2 - 242, 560, 500, 80)}
+            {"text": "Tournament", "rect": pygame.Rect(screen_width // 2 - 245, 260, 500, 80)},
+            {"text": "Simulation", "rect": pygame.Rect(screen_width // 2 - 245, 360, 500, 80)},
+            {"text": "Strategies Theory", "rect": pygame.Rect(screen_width // 2 - 245, 460, 500, 80)},
+            {"text": "Quit", "rect": pygame.Rect(screen_width // 2 - 245, 560, 500, 80)}
         ]
 
         for button in buttons:
@@ -68,16 +68,14 @@ def main_menu():
                     if button["rect"].collidepoint((mouse_x, mouse_y)):
                         if button["text"] == "Tournament":
                             tournament()
-                            # Start the game
-                            # Replace this with your actual game code
-                            print("Starting game...")
+
                         elif button["text"] == "Simulation":
                             # Show Simulation
                             print("Starting Simulation")
+
                         elif button["text"] == "Strategies Theory":
                             show_theory()
-                            # Show theory
-                            # Replace this with your theory display code
+          
                         elif button["text"] == "Quit":
                             pygame.quit()
                             sys.exit()
@@ -168,35 +166,40 @@ def show_theory():
 def tournament():
     running = True
 
-    box_dimensions = (700,42)
+    box_dimensions = (500,44)
     box_x = 50
-    box_y_initial = 150
+    box_y_initial = 130
+    box_y_delta = 52
+    box_y_end = box_y_initial + box_y_delta * len(strategies) 
+    check_boxes = [False] * len(strategies)
 
     while running:
         screen.fill(PRIMARY)
         draw_text("TOURNAMENT", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
 
-        check_boxes = [False] * len(strategies)
 
         y_offset = box_y_initial
 
-
         for i,strategy in enumerate(strategies):
-            pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
-
             if check_boxes[i]:
-                draw_text(strategy.name, pygame.font.Font(None,30),(0,0,0),500, y_offset)
+                pygame.draw.rect(screen, TER_BLUE, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
+                pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
+                pygame.draw.circle(screen,(40,255,40),(510,y_offset-3),10)
+                draw_text(strategy.name, pygame.font.Font(None,40),(255,255,255),300, y_offset-2)
 
             else:
-                draw_text(strategy.name, pygame.font.Font(None,30),(255,255,255),500, y_offset)
+                pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
+                pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
+                pygame.draw.circle(screen,(255,0,0),(510,y_offset-3),10)
+                draw_text(strategy.name, pygame.font.Font(None,40),(0,0,0),300, y_offset-2)
 
             image_path = f"images/{strategy.st_id}.png"
             if os.path.exists(image_path):
                 image = pygame.image.load(image_path)
                 image = pygame.transform.scale(image, (50, 50))
-                screen.blit(image, (350, y_offset - 30))
+                screen.blit(image, (80, y_offset - 30))
 
-            y_offset += 50
+            y_offset += box_y_delta
 
         pygame.display.update()
 
@@ -207,19 +210,16 @@ def tournament():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
+                    click_pos = event.pos
                     x_range = (box_x,box_x+box_dimensions[0])
-                    # Checkbox 1
-                    # if event.pos:
-                    #     checkbox1_checked = not checkbox1_checked
-                    # # Checkbox 2
-                    # elif checkbox2.collidepoint(event.pos):
-                    #     checkbox2_checked = not checkbox2_checked
-                    # # Input field
-                    # elif input_rect.collidepoint(event.pos):
-                    #     input_selected = True
-                    # else:
-                    #     input_selected = False
-                    print(event.pos)
+
+                    i_count = 0
+                    for y in range(box_y_initial+10,box_y_end + 1,box_y_delta):
+                        if x_range[0] < click_pos[0] < x_range[1]:
+                            if y - box_y_delta < click_pos[1] < y:
+                                check_boxes[i_count] = not check_boxes[i_count]
+                    
+                        i_count += 1
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
