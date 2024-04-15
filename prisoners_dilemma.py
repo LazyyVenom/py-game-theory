@@ -54,7 +54,8 @@ def main_menu():
                 pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 6) 
             else:
                 pygame.draw.rect(screen, TER_BLUE, button["rect"])
-                pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 6)  
+                pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 6)
+                  
             draw_text(button["text"], pygame.font.Font(None, 60), TEXT_COLOR, button["rect"].centerx, button["rect"].centery)
 
         draw_text("Recreation of Axelrod's Tournament by Anubhav Choubey", pygame.font.Font(None, 40), KIND_OF_YELLOW, screen_width//2, 720)
@@ -150,9 +151,11 @@ def show_theory():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
+
                 elif event.key == pygame.K_UP:
                     if scroll_pos > 0:
                         scroll_pos -= 1  
+
                 elif event.key == pygame.K_DOWN:
                     if scroll_pos < len(instruction_text) - (screen_height - 180) // 30:
                         scroll_pos += 1 
@@ -160,8 +163,10 @@ def show_theory():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 4:
                     scroll_pos -= scroll_speed
+                    
                 elif event.button == 5: 
                     scroll_pos += scroll_speed
+
                 elif event.button == 1:
                     click_pos = event.pos
                     if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
@@ -231,6 +236,7 @@ def tournament():
                 draw_text(strategy.name, pygame.font.Font(None,40),(0,0,0),325, y_offset-2)
 
             image_path = f"images/{strategy.st_id}.png"
+
             if os.path.exists(image_path):
                 image = pygame.image.load(image_path)
                 image = pygame.transform.scale(image, (50, 50))
