@@ -213,7 +213,7 @@ def tournament():
             pygame.draw.rect(screen,PRIMARY,(770,404,400,50),5)
 
         text_surface = font.render(number_of_rounds, True, SECONDARY)
-        screen.blit(text_surface, (776, 410))
+        screen.blit(text_surface, (776, 411))
 
         y_offset = box_y_initial
 
