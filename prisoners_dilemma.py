@@ -57,7 +57,7 @@ def main_menu():
                 pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 6)  
             draw_text(button["text"], pygame.font.Font(None, 60), TEXT_COLOR, button["rect"].centerx, button["rect"].centery)
 
-        draw_text("Created Anubhav Choubey", pygame.font.Font(None, 40), KIND_OF_YELLOW, 970, 720)
+        draw_text("Creator Anubhav Choubey", pygame.font.Font(None, 40), KIND_OF_YELLOW, 970, 720)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -136,6 +136,9 @@ def show_theory():
             if y_offset > screen_height - 30:
                 break
 
+        pygame.draw.rect(screen,SECONDARY,(1100,20,80,50),border_radius=3)
+        draw_text("ESC", pygame.font.Font(None,50),PRIMARY,1140, 47)
+
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -158,10 +161,16 @@ def show_theory():
                     scroll_pos -= scroll_speed
                 elif event.button == 5: 
                     scroll_pos += scroll_speed
+                elif event.button == 1:
+                    click_pos = event.pos
+                    if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
+                        running = False
             
             scroll_pos = max(scroll_pos,0)
             scroll_pos = min(scroll_pos,10)
 
+#TO KEEP TRACK OF STRATEGY SELECTION
+check_boxes = [True] * len(strategies)
 
 def tournament():
     running = True
@@ -171,7 +180,6 @@ def tournament():
     box_y_initial = 130
     box_y_delta = 52
     box_y_end = box_y_initial + box_y_delta * len(strategies) 
-    check_boxes = [False] * len(strategies)
 
     while running:
         screen.fill(PRIMARY)
@@ -190,7 +198,7 @@ def tournament():
             else:
                 pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
                 pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
-                pygame.draw.circle(screen,(255,0,0),(510,y_offset-3),10)
+                pygame.draw.circle(screen,(255,40,40),(510,y_offset-3),10)
                 draw_text(strategy.name, pygame.font.Font(None,40),(0,0,0),300, y_offset-2)
 
             image_path = f"images/{strategy.st_id}.png"
@@ -200,6 +208,10 @@ def tournament():
                 screen.blit(image, (80, y_offset - 30))
 
             y_offset += box_y_delta
+
+        pygame.draw.rect(screen,SECONDARY,(1100,20,80,50),border_radius=3)
+        draw_text("ESC", pygame.font.Font(None,50),PRIMARY,1140, 47)
+
 
         pygame.display.update()
 
@@ -211,6 +223,10 @@ def tournament():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click_pos = event.pos
+
+                    if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
+                        running = False
+
                     x_range = (box_x,box_x+box_dimensions[0])
 
                     i_count = 0
@@ -220,6 +236,7 @@ def tournament():
                                 check_boxes[i_count] = not check_boxes[i_count]
                     
                         i_count += 1
+
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
