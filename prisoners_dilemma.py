@@ -57,12 +57,13 @@ def main_menu():
                 pygame.draw.rect(screen, BUTTON_BORDER_COLOR, button["rect"], 6)  
             draw_text(button["text"], pygame.font.Font(None, 60), TEXT_COLOR, button["rect"].centerx, button["rect"].centery)
 
-        draw_text("Creator Anubhav Choubey", pygame.font.Font(None, 40), KIND_OF_YELLOW, 970, 720)
+        draw_text("Recreation of Axelrod's Tournament by Anubhav Choubey", pygame.font.Font(None, 40), KIND_OF_YELLOW, screen_width//2, 720)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for button in buttons:
                     if button["rect"].collidepoint((mouse_x, mouse_y)):
@@ -175,7 +176,7 @@ check_boxes = [True] * len(strategies)
 def tournament():
     running = True
 
-    box_dimensions = (500,44)
+    box_dimensions = (550,44)
     box_x = 50
     box_y_initial = 130
     box_y_delta = 52
@@ -192,14 +193,14 @@ def tournament():
             if check_boxes[i]:
                 pygame.draw.rect(screen, TER_BLUE, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
                 pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
-                pygame.draw.circle(screen,(40,255,40),(510,y_offset-3),10)
-                draw_text(strategy.name, pygame.font.Font(None,40),(255,255,255),300, y_offset-2)
+                pygame.draw.circle(screen,(40,255,40),(560,y_offset-3),10)
+                draw_text(strategy.name, pygame.font.Font(None,40),(255,255,255),325, y_offset-2)
 
             else:
                 pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
                 pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
-                pygame.draw.circle(screen,(255,40,40),(510,y_offset-3),10)
-                draw_text(strategy.name, pygame.font.Font(None,40),(0,0,0),300, y_offset-2)
+                pygame.draw.circle(screen,(255,40,40),(560,y_offset-3),10)
+                draw_text(strategy.name, pygame.font.Font(None,40),(0,0,0),325, y_offset-2)
 
             image_path = f"images/{strategy.st_id}.png"
             if os.path.exists(image_path):
