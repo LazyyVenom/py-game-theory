@@ -186,6 +186,28 @@ def tournament():
         screen.fill(PRIMARY)
         draw_text("TOURNAMENT", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
 
+        paragraph = [
+            "Select Strategies,",
+            "Select Number Of Rounds,",
+            "You Can Read About",
+            "Strategies in Theory,",
+            "Choose Needed Insights,",
+            "And Round Robin Tournament STARTS"
+        ]
+
+        pygame.draw.rect(screen,SECONDARY,(630,105,540,250))
+
+        text_y_offset = 130
+        for line in paragraph:
+            draw_text(line,pygame.font.Font(None,40),(255,255,255),900,text_y_offset)
+            
+            text_y_offset += 40
+
+        number_of_rounds = ""
+        input_selected = False
+
+        draw_text("ROUNDS: ", pygame.font.Font(None,40),(0,0,0),700,400)
+        pygame.draw.rect(screen,(255,255,255),(700,420,300,50))
 
         y_offset = box_y_initial
 
@@ -227,6 +249,9 @@ def tournament():
 
                     if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
                         running = False
+                    
+                    elif () and ():
+                        input_selected = not input_selected
 
                     x_range = (box_x,box_x+box_dimensions[0])
 
@@ -242,6 +267,12 @@ def tournament():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
+
+                if input_selected:
+                    if event.key == pygame.K_BACKSPACE:
+                        input_text = input_text[:-1]
+                    else:
+                        input_text += event.unicode
 
 
 if __name__ == '__main__':
