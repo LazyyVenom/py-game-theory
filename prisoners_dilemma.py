@@ -67,6 +67,7 @@ def main_menu():
                 for button in buttons:
                     if button["rect"].collidepoint((mouse_x, mouse_y)):
                         if button["text"] == "Tournament":
+                            tournament()
                             # Start the game
                             # Replace this with your actual game code
                             print("Starting game...")
@@ -162,6 +163,68 @@ def show_theory():
             
             scroll_pos = max(scroll_pos,0)
             scroll_pos = min(scroll_pos,10)
+
+
+def tournament():
+    running = True
+
+    box_dimensions = (700,42)
+    box_x = 50
+    box_y_initial = 150
+
+    while running:
+        screen.fill(PRIMARY)
+        draw_text("TOURNAMENT", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
+
+        check_boxes = [False] * len(strategies)
+
+        y_offset = box_y_initial
+
+
+        for i,strategy in enumerate(strategies):
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
+
+            if check_boxes[i]:
+                draw_text(strategy.name, pygame.font.Font(None,30),(0,0,0),500, y_offset)
+
+            else:
+                draw_text(strategy.name, pygame.font.Font(None,30),(255,255,255),500, y_offset)
+
+            image_path = f"images/{strategy.st_id}.png"
+            if os.path.exists(image_path):
+                image = pygame.image.load(image_path)
+                image = pygame.transform.scale(image, (50, 50))
+                screen.blit(image, (350, y_offset - 30))
+
+            y_offset += 50
+
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    x_range = (box_x,box_x+box_dimensions[0])
+                    # Checkbox 1
+                    # if event.pos:
+                    #     checkbox1_checked = not checkbox1_checked
+                    # # Checkbox 2
+                    # elif checkbox2.collidepoint(event.pos):
+                    #     checkbox2_checked = not checkbox2_checked
+                    # # Input field
+                    # elif input_rect.collidepoint(event.pos):
+                    #     input_selected = True
+                    # else:
+                    #     input_selected = False
+                    print(event.pos)
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+
 
 if __name__ == '__main__':
     main_menu()
