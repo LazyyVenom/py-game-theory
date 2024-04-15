@@ -42,10 +42,10 @@ def main_menu():
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
         buttons = [
-            {"text": "Tournament", "rect": pygame.Rect(screen_width // 2 - 245, 260, 500, 80)},
-            {"text": "Simulation", "rect": pygame.Rect(screen_width // 2 - 245, 360, 500, 80)},
-            {"text": "Strategies Theory", "rect": pygame.Rect(screen_width // 2 - 245, 460, 500, 80)},
-            {"text": "Quit", "rect": pygame.Rect(screen_width // 2 - 245, 560, 500, 80)}
+            {"text": "Tournament", "rect": pygame.Rect(screen_width // 2 - 250, 260, 500, 80)},
+            {"text": "Simulation", "rect": pygame.Rect(screen_width // 2 - 250, 360, 500, 80)},
+            {"text": "Strategies Theory", "rect": pygame.Rect(screen_width // 2 - 250, 460, 500, 80)},
+            {"text": "Quit", "rect": pygame.Rect(screen_width // 2 - 250, 560, 500, 80)}
         ]
 
         for button in buttons:
