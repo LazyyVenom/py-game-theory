@@ -175,7 +175,8 @@ check_boxes = [True] * len(strategies)
 
 def tournament():
     running = True
-
+    number_of_rounds = ""
+    input_selected = False
     box_dimensions = (550,44)
     box_x = 50
     box_y_initial = 130
@@ -203,11 +204,16 @@ def tournament():
             
             text_y_offset += 40
 
-        number_of_rounds = ""
-        input_selected = False
+        draw_text("ROUNDS: ", pygame.font.Font(None,40),SECONDARY,701,430)
+        pygame.draw.rect(screen,(255,255,255),(770,404,400,50))
+        if input_selected:
+            pygame.draw.rect(screen,SECONDARY,(770,404,400,50),5)
+        
+        else:
+            pygame.draw.rect(screen,PRIMARY,(770,404,400,50),5)
 
-        draw_text("ROUNDS: ", pygame.font.Font(None,40),(0,0,0),700,400)
-        pygame.draw.rect(screen,(255,255,255),(700,420,300,50))
+        text_surface = font.render(number_of_rounds, True, SECONDARY)
+        screen.blit(text_surface, (776, 410))
 
         y_offset = box_y_initial
 
@@ -250,8 +256,11 @@ def tournament():
                     if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
                         running = False
                     
-                    elif () and ():
-                        input_selected = not input_selected
+                    elif (770 < click_pos[0] < 1170) and (404 < click_pos[1] < 454):
+                        input_selected = True
+                    
+                    else:
+                        input_selected = False
 
                     x_range = (box_x,box_x+box_dimensions[0])
 
@@ -270,9 +279,12 @@ def tournament():
 
                 if input_selected:
                     if event.key == pygame.K_BACKSPACE:
-                        input_text = input_text[:-1]
+                       number_of_rounds =number_of_rounds[:-1]
                     else:
-                        input_text += event.unicode
+                       ch = event.unicode
+
+                       if ch in "0123456789":
+                            number_of_rounds += event.unicode
 
 
 if __name__ == '__main__':
