@@ -285,6 +285,9 @@ def tournament():
                     elif (770 < click_pos[0] < 1170) and (554 < click_pos[1] < 604):
                         input_selected = True
                     
+                    elif (630 < click_pos[0] < 1180) and (670 < click_pos[1] < 720):
+                        tournament_start()
+
                     else:
                         input_selected = False
 
