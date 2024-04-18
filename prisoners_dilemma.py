@@ -313,7 +313,8 @@ def tournament():
                             number_of_rounds += event.unicode
 
 
-
+def tournament_start():
+    print("STARTING THE TOURNAMENT")
 
 
 if __name__ == '__main__':
