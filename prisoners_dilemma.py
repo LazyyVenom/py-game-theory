@@ -197,33 +197,48 @@ def tournament():
             "Select Number Of Rounds,",
             "You Can Read About",
             "Strategies in Theory,",
-            "Choose Needed Insights,",
-            "And Round Robin Tournament STARTS"
+            "Tournament Is Round Robin Based",
+            "(Including Self With Self)",
+            "Both Cooperate - 3pts to both",
+            "Both Defect - 1pts to both",
+            "One Defects - 5pts to Defect",
+            "0pts To Cooperate"
         ]
 
-        pygame.draw.rect(screen,SECONDARY,(630,105,540,250))
+        pygame.draw.rect(screen,SECONDARY,(630,105,540,405))
 
         text_y_offset = 130
-        for line in paragraph:
+        for line in paragraph[:6]:
             draw_text(line,pygame.font.Font(None,40),(255,255,255),900,text_y_offset)
             
             text_y_offset += 40
 
-        draw_text("ROUNDS: ", pygame.font.Font(None,40),SECONDARY,701,430)
-        pygame.draw.rect(screen,(255,255,255),(770,404,400,50))
+        for line in paragraph[6:]:
+            draw_text(line,pygame.font.Font(None,40),TER_BLUE,900,text_y_offset)
+            
+            text_y_offset += 40
+
+        draw_text("ROUNDS: ", pygame.font.Font(None,40),SECONDARY,701,590)
+        pygame.draw.rect(screen,(255,255,255),(770,564,400,50))
         if input_selected:
-            pygame.draw.rect(screen,SECONDARY,(770,404,400,50),5)
+            pygame.draw.rect(screen,SECONDARY,(770,564,400,50),5)
         
         else:
-            pygame.draw.rect(screen,PRIMARY,(770,404,400,50),5)
+            pygame.draw.rect(screen,PRIMARY,(770,564,400,50),5)
 
         text_surface = font.render(number_of_rounds, True, SECONDARY)
-        screen.blit(text_surface, (776, 411))
+        screen.blit(text_surface, (776, 573))
 
+        mouse_x, mouse_y = pygame.mouse.get_pos()
         
-        pygame.draw.rect(screen,SECONDARY,(630,670,540,50))
-        pygame.draw.rect(screen,KIND_OF_YELLOW,(630,670,540,50),5)
-        draw_text("START",pygame.font.Font(None,57),KIND_OF_YELLOW,900,695)
+        if (630 < mouse_x < 1180) and (670 < mouse_y < 720):
+            pygame.draw.rect(screen,KIND_OF_YELLOW,(630,670,540,50))
+            pygame.draw.rect(screen,SECONDARY,(630,670,540,50),5)
+            draw_text("START",pygame.font.Font(None,57),SECONDARY,900,695)
+        else:
+            pygame.draw.rect(screen,SECONDARY,(630,670,540,50))
+            pygame.draw.rect(screen,KIND_OF_YELLOW,(630,670,540,50),5)
+            draw_text("START",pygame.font.Font(None,57),KIND_OF_YELLOW,900,695)
 
         y_offset = box_y_initial
 
@@ -267,7 +282,7 @@ def tournament():
                     if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
                         running = False
                     
-                    elif (770 < click_pos[0] < 1170) and (404 < click_pos[1] < 454):
+                    elif (770 < click_pos[0] < 1170) and (554 < click_pos[1] < 604):
                         input_selected = True
                     
                     else:
@@ -296,6 +311,9 @@ def tournament():
 
                        if ch in "0123456789":
                             number_of_rounds += event.unicode
+
+
+
 
 
 if __name__ == '__main__':
