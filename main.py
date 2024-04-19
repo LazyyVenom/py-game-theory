@@ -15,8 +15,10 @@ def tournament_logic(strategies,rounds):
     for self_index, strategy in enumerate(strategies):
         for opp_index, opponent_strategy in enumerate(strategies):
             for round in range(rounds):
-                print(f"ROUND-{round}({strategy.name} VS {opponent_strategy.name})")
-            
+                base_string = f"ROUND-{round} --- {strategy.name} VS {opponent_strategy.name}"
+
+                
+                print(base_string)
 
 if __name__ == '__main__':
     tournament_logic(needed_strategies,20)

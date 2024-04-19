@@ -283,7 +283,7 @@ def tester_logic(prev_results,place):
         return 0
 
     if len(prev_results) > 3:
-        check = prev_results[3][int(not place)]
+        check = prev_results[(len(prev_results)//2)*3][int(not place)]
 
         if check:
             return 0
