@@ -55,4 +55,4 @@ if __name__ == '__main__':
     print("----------------------------------------------------------")
     print("WINNER:",winner.name)
     print("WINNER TYPE:",winner.strategy_type)
-    print(f"POINTS: {winner_pts}/{rounds*len(strategies)*5}")
+    print(f"POINTS: {winner_pts}/{rounds*len(strategies)*5}") 
