@@ -10,4 +10,9 @@ for i in range(len(strategies)):
         needed_strategies.append(strategies[i])
 
 def tournament_logic(strategies,rounds):
-    prev_results_list = []
+    prev_results_list = [[] for _ in range(len(strategies))]
+
+    for self_index, strategy in enumerate(strategies):
+        for opp_index, opponent_strategy in strategies:
+            for round in rounds:
+                strategy
