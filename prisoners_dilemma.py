@@ -1,6 +1,7 @@
 import pygame
 import sys
-from strategy import strategies
+from strategy import strategies, Strategy, score
+from main import tournament_logic
 import os
 
 # Initialize Pygame

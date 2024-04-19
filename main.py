@@ -17,7 +17,7 @@ def tournament_logic(strategies: typing.List[Strategy],rounds) -> typing.List[in
     for index, strategy in enumerate(strategies):
         for opponent_strategy in strategies:
             for round in range(rounds):
-                base_string = f"ROUND-{round} --- {strategy.name} VS {opponent_strategy.name}"
+                # base_string = f"ROUND-{round} --- {strategy.name} VS {opponent_strategy.name}"
 
                 self_choice = strategy.giveNextChoice(
                     prev_results=prev_results,place=0
@@ -41,7 +41,7 @@ def tournament_logic(strategies: typing.List[Strategy],rounds) -> typing.List[in
 if __name__ == '__main__':
     rounds = 200
     results = tournament_logic(needed_strategies,rounds)
-        
+    
     winner = ""
     winner_pts = 0
 
