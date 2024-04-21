@@ -44,7 +44,7 @@ def tournament_logic(strategies: typing.List[Strategy],rounds) -> typing.List[li
                 scoree[0] += curr_score
 
             prev_results = []
-            
+
         scores.append(scoree)
     
     return scores
@@ -52,7 +52,7 @@ def tournament_logic(strategies: typing.List[Strategy],rounds) -> typing.List[li
 if __name__ == '__main__':
     rounds = 200
     results = tournament_logic(needed_strategies,rounds)
-    print(results)
+    # print(results)
     
     winner = ""
     winner_pts = []

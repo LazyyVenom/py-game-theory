@@ -318,9 +318,17 @@ def tournament():
                             number_of_rounds += event.unicode
 
 
-def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int) -> scores:
-    
+def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int) -> None:
+    needed_strategies = []
+    for i in range(len(strategies)):
+        if flags[i]:
+            needed_strategies.append(strategies[i])
+
     print("STARTING THE TOURNAMENT")
+    scores = tournament_logic(needed_strategies,rounds)
+    print(scores)
+
+    return 
 
 
 if __name__ == '__main__':
