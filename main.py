@@ -10,11 +10,13 @@ for i in range(len(strategies)):
     if flag[i]:
         needed_strategies.append(strategies[i])
 
-def tournament_logic(strategies: typing.List[Strategy],rounds) -> typing.List[int]:
+def tournament_logic(strategies: typing.List[Strategy],rounds) -> typing.List[list]:
     prev_results = []
-    scores = [0] * len(strategies)
+    scores = []
 
     for index, strategy in enumerate(strategies):
+        scoree = [0,0,0,0,0]
+
         for opponent_strategy in strategies:
             for _ in range(rounds):
                 self_choice = strategy.giveNextChoice(
@@ -27,19 +29,33 @@ def tournament_logic(strategies: typing.List[Strategy],rounds) -> typing.List[in
                 prev_results.append((self_choice,opp_choice))
 
                 curr_score = score((self_choice,opp_choice),0)
+                if curr_score == 5:
+                    scoree[4] += 1
+                
+                elif curr_score == 3:
+                    scoree[3] += 1
+                
+                elif curr_score == 1:
+                    scoree[2] += 1
+                
+                else:
+                    scoree[1] += 1
 
-                scores[index] += curr_score
+                scoree[0] += curr_score
 
             prev_results = []
+            
+        scores.append(scoree)
     
     return scores
 
 if __name__ == '__main__':
     rounds = 200
     results = tournament_logic(needed_strategies,rounds)
+    print(results)
     
     winner = ""
-    winner_pts = 0
+    winner_pts = []
 
     for i in range(len(strategies)):
         if results[i] > winner_pts:

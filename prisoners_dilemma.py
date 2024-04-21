@@ -1,6 +1,7 @@
 import pygame
 import sys
 from strategy import strategies, Strategy, score
+import typing
 from main import tournament_logic
 import os
 
@@ -287,7 +288,7 @@ def tournament():
                         input_selected = True
                     
                     elif (630 < click_pos[0] < 1180) and (670 < click_pos[1] < 720):
-                        tournament_start()
+                        tournament_start(check_boxes,strategies,int(number_of_rounds))
 
                     else:
                         input_selected = False
@@ -317,7 +318,8 @@ def tournament():
                             number_of_rounds += event.unicode
 
 
-def tournament_start():
+def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int) -> scores:
+    
     print("STARTING THE TOURNAMENT")
 
 
