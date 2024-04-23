@@ -287,7 +287,10 @@ def tournament():
                         input_selected = True
                     
                     elif (630 < click_pos[0] < 1180) and (670 < click_pos[1] < 720):
-                        tournament_start(check_boxes,strategies,int(number_of_rounds))
+                        try:
+                            tournament_start(check_boxes,strategies,int(number_of_rounds))
+                        except:
+                            print("Enter Value")
 
                     else:
                         input_selected = False
@@ -343,14 +346,18 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
 
         box_dimensions = (500,44)
         box_x = 50
-        box_y_initial = 130
+        box_y_initial = 180
         y_offset = box_y_initial
-        box_y_delta = 52
+        box_y_delta = 48
         if display_data[0][1][0] == 0:
             running = False
 
         per_point_value = (box_dimensions[0]/display_data[0][1][0]) * 0.95
 
+        pygame.draw.rect(screen, TER_BLUE, (box_x, 105, box_dimensions[0], box_dimensions[1]))
+        pygame.draw.rect(screen,SECONDARY , (box_x, 105, box_dimensions[0], box_dimensions[1]),3)
+        draw_text("Strategy Name", pygame.font.Font(None,40),(250,250,250),300, 130-2)
+        
         for data in display_data:
             strategy_color = (55,200,55) if data[0].strategy_type == "NICE" else (200,55,55)
 
@@ -386,6 +393,10 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
 
                     if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
                         running = False
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
 
     return 
 
