@@ -324,9 +324,17 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
         if flags[i]:
             needed_strategies.append(strategies[i])
 
-    print("STARTING THE TOURNAMENT")
+    # print("STARTING THE TOURNAMENT")
     scores = tournament_logic(needed_strategies,rounds)
-    print(scores)
+    
+    display_data = []
+    for i in range(len(scores)):
+        display_data.append([needed_strategies[i],scores[i]])
+    
+    display_data.sort(key= lambda x: x[1][0],reverse=True)
+    
+    for i in range(len(display_data)):
+        print(display_data[i][0].name, display_data[i][1][0])
 
     return 
 
