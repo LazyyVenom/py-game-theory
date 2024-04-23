@@ -131,7 +131,7 @@ pavlov = Strategy(
     name = "Pavlov",
     st_id = "PAV",
     desc = "Strategy: Start with cooperation. Keep the same action if it resulted in the highest payoff in the previous round; switch actions otherwise.\nDescription: Reinforces successful strategies while abandoning unsuccessful ones, promoting stability.",
-    strategy_type = "NICE",
+    strategy_type = "NASTY",
     logic = pavlov_logic
 )
 
@@ -144,7 +144,7 @@ random_st = Strategy(
     name = "Random",
     st_id = "RAN",
     desc = "Strategy: Choose cooperation or defection randomly, with equal probability, in each round.\nDescription: Introduces unpredictability into the game, sometimes exploiting overly deterministic opponents.",
-    strategy_type = "UNKNOWN",
+    strategy_type = "NASTY",
     logic = random_logic
 )
 

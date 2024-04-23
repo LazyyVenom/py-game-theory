@@ -269,7 +269,6 @@ def tournament():
         pygame.draw.rect(screen,SECONDARY,(1100,20,80,50),border_radius=3)
         draw_text("ESC", pygame.font.Font(None,50),PRIMARY,1140, 47)
 
-
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -342,12 +341,51 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
         screen.fill(PRIMARY)
         draw_text("TOURNAMENT RESULT", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
 
+        box_dimensions = (500,44)
+        box_x = 50
+        box_y_initial = 130
+        y_offset = box_y_initial
+        box_y_delta = 52
+        if display_data[0][1][0] == 0:
+            running = False
+
+        per_point_value = (box_dimensions[0]/display_data[0][1][0]) * 0.95
+
+        for data in display_data:
+            strategy_color = (55,200,55) if data[0].strategy_type == "NICE" else (200,55,55)
+
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
+
+            pygame.draw.rect(screen, strategy_color, (box_x, y_offset-25, int(data[1][0]*per_point_value), box_dimensions[1]))
+
+            pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
+            draw_text(data[0].name, pygame.font.Font(None,40),(50,50,50),325, y_offset-2)
+            
+            image_path = f"images/{data[0].st_id}.png"
+
+            if os.path.exists(image_path):
+                image = pygame.image.load(image_path)
+                image = pygame.transform.scale(image, (50, 50))
+                screen.blit(image, (80, y_offset - 30))
+
+            y_offset += box_y_delta
+
+        pygame.draw.rect(screen,SECONDARY,(1100,20,80,50),border_radius=3)
+        draw_text("ESC", pygame.font.Font(None,50),PRIMARY,1140, 47)
+
         pygame.display.update()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click_pos = event.pos
+
+                    if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
+                        running = False
 
     return 
 
