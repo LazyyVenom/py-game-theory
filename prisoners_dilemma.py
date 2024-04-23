@@ -336,6 +336,19 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
     for i in range(len(display_data)):
         print(display_data[i][0].name, display_data[i][1][0])
 
+    running = True
+
+    while running:
+        screen.fill(PRIMARY)
+        draw_text("TOURNAMENT RESULT", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
+
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
     return 
 
 
