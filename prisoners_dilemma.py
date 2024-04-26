@@ -289,8 +289,8 @@ def tournament():
                     elif (630 < click_pos[0] < 1180) and (670 < click_pos[1] < 720):
                         try:
                             tournament_start(check_boxes,strategies,int(number_of_rounds))
-                        except:
-                            print("Enter Value")
+                        except Exception as e:
+                            print(f"Error: {e}")
 
                     else:
                         input_selected = False
@@ -326,7 +326,7 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
         if flags[i]:
             needed_strategies.append(strategies[i])
 
-    # print("STARTING THE TOURNAMENT")
+    print("STARTING THE TOURNAMENT")
     scores = tournament_logic(needed_strategies,rounds)
     
     display_data = []
@@ -335,8 +335,8 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
     
     display_data.sort(key= lambda x: x[1][0],reverse=True)
     
-    for i in range(len(display_data)):
-        print(display_data[i][0].name, display_data[i][1][0])
+    # for i in range(len(display_data)):
+    #     print(display_data[i][0].name, display_data[i][1][0])
 
     running = True
 
@@ -345,6 +345,7 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
         draw_text("TOURNAMENT RESULT", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
 
         box_dimensions = (500,44)
+        score_box_dimensions = (100,44)
         box_x = 50
         box_y_initial = 180
         y_offset = box_y_initial
@@ -358,6 +359,26 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
         pygame.draw.rect(screen,SECONDARY , (box_x, 105, box_dimensions[0], box_dimensions[1]),3)
         draw_text("Strategy Name", pygame.font.Font(None,40),(250,250,250),300, 130-2)
         
+        pygame.draw.rect(screen, TER_BLUE, (555, 105, score_box_dimensions[0], score_box_dimensions[1]))
+        pygame.draw.rect(screen,SECONDARY , (555, 105, score_box_dimensions[0], score_box_dimensions[1]),3)
+        draw_text("Score", pygame.font.Font(None,40),(250,250,250),605, 130-2)
+
+        pygame.draw.rect(screen, TER_BLUE, (665, 105, score_box_dimensions[0], score_box_dimensions[1]))
+        pygame.draw.rect(screen,SECONDARY , (665, 105, score_box_dimensions[0], score_box_dimensions[1]),3)
+        draw_text("5 Pts", pygame.font.Font(None,40),(250,250,250),715, 130-2)
+
+        pygame.draw.rect(screen, TER_BLUE, (775, 105, score_box_dimensions[0], score_box_dimensions[1]))
+        pygame.draw.rect(screen,SECONDARY , (775, 105, score_box_dimensions[0], score_box_dimensions[1]),3)
+        draw_text("3 Pts", pygame.font.Font(None,40),(250,250,250),825, 130-2)
+
+        pygame.draw.rect(screen, TER_BLUE, (885, 105, score_box_dimensions[0], score_box_dimensions[1]))
+        pygame.draw.rect(screen,SECONDARY , (885, 105, score_box_dimensions[0], score_box_dimensions[1]),3)
+        draw_text("1 Pts", pygame.font.Font(None,40),(250,250,250),935, 130-2)
+
+        pygame.draw.rect(screen, TER_BLUE, (995, 105, score_box_dimensions[0], score_box_dimensions[1]))
+        pygame.draw.rect(screen,SECONDARY , (995, 105, score_box_dimensions[0], score_box_dimensions[1]),3)
+        draw_text("0 Pts", pygame.font.Font(None,40),(250,250,250),1045, 130-2)
+        
         for data in display_data:
             strategy_color = (55,200,55) if data[0].strategy_type == "NICE" else (200,55,55)
 
@@ -368,6 +389,26 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
             pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
             draw_text(data[0].name, pygame.font.Font(None,40),(50,50,50),325, y_offset-2)
             
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (555, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
+            pygame.draw.rect(screen,SECONDARY , (555, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
+            draw_text(str(data[1][0]), pygame.font.Font(None,40),(250,250,250),605, y_offset-2)
+
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (665, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
+            pygame.draw.rect(screen,SECONDARY , (665, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
+            draw_text(str(data[1][1]), pygame.font.Font(None,40),(250,250,250),715, y_offset-2)
+
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (775, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
+            pygame.draw.rect(screen,SECONDARY , (775, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
+            draw_text(str(data[1][2]), pygame.font.Font(None,40),(250,250,250),825, y_offset-2)
+
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (885, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
+            pygame.draw.rect(screen,SECONDARY , (885, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
+            draw_text(str(data[1][3]), pygame.font.Font(None,40),(250,250,250),935, y_offset-2)
+
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (995, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
+            pygame.draw.rect(screen,SECONDARY , (995, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
+            draw_text(str(data[1][4]), pygame.font.Font(None,40),(250,250,250),1045, y_offset-2)
+
             image_path = f"images/{data[0].st_id}.png"
 
             if os.path.exists(image_path):
