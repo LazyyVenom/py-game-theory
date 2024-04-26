@@ -391,23 +391,23 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
             
             pygame.draw.rect(screen, KIND_OF_YELLOW, (555, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
             pygame.draw.rect(screen,SECONDARY , (555, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
-            draw_text(str(data[1][0]), pygame.font.Font(None,40),(250,250,250),605, y_offset-2)
+            draw_text(str(data[1][0]), pygame.font.Font(None,40),(50,50,50),605, y_offset-2)
 
             pygame.draw.rect(screen, KIND_OF_YELLOW, (665, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
             pygame.draw.rect(screen,SECONDARY , (665, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
-            draw_text(str(data[1][1]), pygame.font.Font(None,40),(250,250,250),715, y_offset-2)
+            draw_text(str(data[1][4]), pygame.font.Font(None,40),(50,50,50),715, y_offset-2)
 
             pygame.draw.rect(screen, KIND_OF_YELLOW, (775, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
             pygame.draw.rect(screen,SECONDARY , (775, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
-            draw_text(str(data[1][2]), pygame.font.Font(None,40),(250,250,250),825, y_offset-2)
+            draw_text(str(data[1][3]), pygame.font.Font(None,40),(50,50,50),825, y_offset-2)
 
             pygame.draw.rect(screen, KIND_OF_YELLOW, (885, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
             pygame.draw.rect(screen,SECONDARY , (885, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
-            draw_text(str(data[1][3]), pygame.font.Font(None,40),(250,250,250),935, y_offset-2)
+            draw_text(str(data[1][2]), pygame.font.Font(None,40),(50,50,50),935, y_offset-2)
 
             pygame.draw.rect(screen, KIND_OF_YELLOW, (995, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
             pygame.draw.rect(screen,SECONDARY , (995, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
-            draw_text(str(data[1][4]), pygame.font.Font(None,40),(250,250,250),1045, y_offset-2)
+            draw_text(str(data[1][1]), pygame.font.Font(None,40),(50,50,50),1045, y_offset-2)
 
             image_path = f"images/{data[0].st_id}.png"
 
