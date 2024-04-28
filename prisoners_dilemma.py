@@ -25,7 +25,7 @@ INSTRUCTION_COLOR = SECONDARY
 INSTRUCTION_HEADING_COLOR = (242, 247, 161)
 
 # Fonts
-font = pygame.font.Font(None, 50)
+font = pygame.font.Font(None, 40)
 instruction_font = pygame.font.Font(None, 40)
 
 def draw_text(text, font, color, x, y):
@@ -322,9 +322,8 @@ def tournament():
 
 def simulation():
     running = True
-    number_of_rounds = ""
     input_selected = [False] * len(strategies)
-    inputs = [0] * len(strategies)
+    inputs = ["1000"] * len(strategies)
     input_dimensions = (100,44)
     box_dimensions = (500,44)
     box_x = 50
@@ -388,13 +387,13 @@ def simulation():
                 pygame.draw.circle(screen,(40,255,40),(520,y_offset-3),10)
                 draw_text(strategy.name, pygame.font.Font(None,40),(255,255,255),325, y_offset-2)
 
+                text_surface = font.render(inputs[i], True, (255,255,255))
+                screen.blit(text_surface, (570, y_offset-15))
+
             else:
                 pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
                 pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
                 pygame.draw.rect(screen,SECONDARY , (box_x + 510, y_offset-25, input_dimensions[0], input_dimensions[1]))
-
-                if input_selected[i]:
-                    pygame.draw.rect(screen,(255,255,255), (box_x + 510, y_offset-25, input_dimensions[0], input_dimensions[1]),2)
                 
                 pygame.draw.circle(screen,(255,40,40),(520,y_offset-3),10)
                 draw_text(strategy.name, pygame.font.Font(None,40),(0,0,0),325, y_offset-2)
@@ -427,7 +426,7 @@ def simulation():
                     
                     elif (630 < click_pos[0] < 1180) and (670 < click_pos[1] < 720):
                         try:
-                            tournament_start(check_boxes,strategies,int(number_of_rounds))
+                            print("Start Simulation")
                         except Exception as e:
                             print(f"Error: {e}")
 
@@ -453,10 +452,21 @@ def simulation():
                     
                         i_count += 1
 
-
+            
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
+
+                if True in input_selected:
+                    needed_index = input_selected.index(True)
+
+                    if event.key == pygame.K_BACKSPACE:
+                       inputs[needed_index] = inputs[needed_index][:-1]
+                    else:
+                       ch = event.unicode
+
+                       if ch in "0123456789":
+                            inputs[needed_index] += event.unicode
 
 
 def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int) -> None:
