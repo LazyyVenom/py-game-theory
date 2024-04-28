@@ -446,9 +446,8 @@ def simulation():
 
                     i_count = 0
                     for y in range(box_y_initial+10,box_y_end + 1,box_y_delta):
-                        if 680 < click_pos[0] < 780:
+                        if 580 < click_pos[0] < 680:
                             if y - box_y_delta < click_pos[1] < y:
-                                print(i_count)
                                 input_selected[i_count] = not input_selected[i_count]
                                 break
                     
