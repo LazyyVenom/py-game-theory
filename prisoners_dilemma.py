@@ -426,7 +426,7 @@ def simulation():
                     
                     elif (630 < click_pos[0] < 1180) and (670 < click_pos[1] < 720):
                         try:
-                            print("Start Simulation")
+                            simulation_start(strategies,check_boxes,inputs)
                         except Exception as e:
                             print(f"Error: {e}")
 
@@ -589,9 +589,13 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
     return 
 
 
-def simulation_start():
-    print("Starting Simulation")
+def simulation_start(strategies,flags,inputs):
+    needed_strategies = []
+    for i in range(len(strategies)):
+        if flags[i]:
+            needed_strategies.append(strategies[i])
 
+    print("STARTING THE SIMULATION")
 
 
 
