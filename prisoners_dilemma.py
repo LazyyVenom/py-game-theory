@@ -74,8 +74,7 @@ def main_menu():
                             tournament()
 
                         elif button["text"] == "Simulation":
-                            # Show Simulation
-                            print("Starting Simulation")
+                            simulation()
 
                         elif button["text"] == "Strategies Theory":
                             show_theory()
@@ -193,6 +192,146 @@ def tournament():
     while running:
         screen.fill(PRIMARY)
         draw_text("TOURNAMENT", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
+
+        paragraph = [
+            "Select Strategies,",
+            "Select Number Of Rounds,",
+            "You Can Read About",
+            "Strategies in Theory,",
+            "Tournament Is Round Robin Based",
+            "(Including Self With Self)",
+            "Both Cooperate - 3pts to both",
+            "Both Defect - 1pts to both",
+            "One Defects - 5pts to Defect",
+            "0pts To Cooperate"
+        ]
+
+        pygame.draw.rect(screen,SECONDARY,(630,105,540,405))
+
+        text_y_offset = 130
+        for line in paragraph[:6]:
+            draw_text(line,pygame.font.Font(None,40),(255,255,255),900,text_y_offset)
+            
+            text_y_offset += 40
+
+        for line in paragraph[6:]:
+            draw_text(line,pygame.font.Font(None,40),TER_BLUE,900,text_y_offset)
+            
+            text_y_offset += 40
+
+        draw_text("ROUNDS: ", pygame.font.Font(None,40),SECONDARY,701,590)
+        pygame.draw.rect(screen,(255,255,255),(770,564,400,50))
+        if input_selected:
+            pygame.draw.rect(screen,SECONDARY,(770,564,400,50),5)
+        
+        else:
+            pygame.draw.rect(screen,PRIMARY,(770,564,400,50),5)
+
+        text_surface = font.render(number_of_rounds, True, SECONDARY)
+        screen.blit(text_surface, (776, 573))
+
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        
+        if (630 < mouse_x < 1180) and (670 < mouse_y < 720):
+            pygame.draw.rect(screen,KIND_OF_YELLOW,(630,670,540,50))
+            pygame.draw.rect(screen,SECONDARY,(630,670,540,50),5)
+            draw_text("START",pygame.font.Font(None,57),SECONDARY,900,695)
+        else:
+            pygame.draw.rect(screen,SECONDARY,(630,670,540,50))
+            pygame.draw.rect(screen,KIND_OF_YELLOW,(630,670,540,50),5)
+            draw_text("START",pygame.font.Font(None,57),KIND_OF_YELLOW,900,695)
+
+        y_offset = box_y_initial
+
+        for i,strategy in enumerate(strategies):
+            if check_boxes[i]:
+                pygame.draw.rect(screen, TER_BLUE, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
+                pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
+                pygame.draw.circle(screen,(40,255,40),(560,y_offset-3),10)
+                draw_text(strategy.name, pygame.font.Font(None,40),(255,255,255),325, y_offset-2)
+
+            else:
+                pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
+                pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
+                pygame.draw.circle(screen,(255,40,40),(560,y_offset-3),10)
+                draw_text(strategy.name, pygame.font.Font(None,40),(0,0,0),325, y_offset-2)
+
+            image_path = f"images/{strategy.st_id}.png"
+
+            if os.path.exists(image_path):
+                image = pygame.image.load(image_path)
+                image = pygame.transform.scale(image, (50, 50))
+                screen.blit(image, (80, y_offset - 30))
+
+            y_offset += box_y_delta
+
+        pygame.draw.rect(screen,SECONDARY,(1100,20,80,50),border_radius=3)
+        draw_text("ESC", pygame.font.Font(None,50),PRIMARY,1140, 47)
+
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click_pos = event.pos
+
+                    if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
+                        running = False
+                    
+                    elif (770 < click_pos[0] < 1170) and (554 < click_pos[1] < 604):
+                        input_selected = True
+                    
+                    elif (630 < click_pos[0] < 1180) and (670 < click_pos[1] < 720):
+                        try:
+                            tournament_start(check_boxes,strategies,int(number_of_rounds))
+                        except Exception as e:
+                            print(f"Error: {e}")
+
+                    else:
+                        input_selected = False
+
+                    x_range = (box_x,box_x+box_dimensions[0])
+
+                    i_count = 0
+                    for y in range(box_y_initial+10,box_y_end + 1,box_y_delta):
+                        if x_range[0] < click_pos[0] < x_range[1]:
+                            if y - box_y_delta < click_pos[1] < y:
+                                check_boxes[i_count] = not check_boxes[i_count]
+                    
+                        i_count += 1
+
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+
+                if input_selected:
+                    if event.key == pygame.K_BACKSPACE:
+                       number_of_rounds =number_of_rounds[:-1]
+                    else:
+                       ch = event.unicode
+
+                       if ch in "0123456789":
+                            number_of_rounds += event.unicode
+
+
+def simulation():
+    running = True
+    number_of_rounds = ""
+    input_selected = False
+    box_dimensions = (550,44)
+    box_x = 50
+    box_y_initial = 130
+    box_y_delta = 52
+    box_y_end = box_y_initial + box_y_delta * len(strategies) 
+
+    while running:
+        screen.fill(PRIMARY)
+        draw_text("SIMULATION", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
 
         paragraph = [
             "Select Strategies,",
