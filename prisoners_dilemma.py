@@ -207,6 +207,7 @@ def tournament():
         ]
 
         pygame.draw.rect(screen,SECONDARY,(630,105,540,405))
+        pygame.draw.rect(screen,(255,255,255),(630,105,540,405),3)
 
         text_y_offset = 130
         for line in paragraph[:6]:
@@ -348,29 +349,30 @@ def simulation():
             "0pts To Cooperate"
         ]
 
-        pygame.draw.rect(screen,SECONDARY,(630,105,540,405))
+        pygame.draw.rect(screen,SECONDARY,(680,105,490,405))
+        pygame.draw.rect(screen,(255,255,255),(680,105,490,405),2)
 
         text_y_offset = 130
         for line in paragraph[:6]:
-            draw_text(line,pygame.font.Font(None,40),(255,255,255),900,text_y_offset)
+            draw_text(line,pygame.font.Font(None,40),(255,255,255),925,text_y_offset)
             
             text_y_offset += 40
 
         for line in paragraph[6:]:
-            draw_text(line,pygame.font.Font(None,40),TER_BLUE,900,text_y_offset)
+            draw_text(line,pygame.font.Font(None,40),TER_BLUE,925,text_y_offset)
             
             text_y_offset += 40
 
         mouse_x, mouse_y = pygame.mouse.get_pos()
         
-        if (630 < mouse_x < 1180) and (670 < mouse_y < 720):
-            pygame.draw.rect(screen,KIND_OF_YELLOW,(630,670,540,50))
-            pygame.draw.rect(screen,SECONDARY,(630,670,540,50),5)
-            draw_text("START",pygame.font.Font(None,57),SECONDARY,900,695)
+        if (680 < mouse_x < 1180) and (670 < mouse_y < 720):
+            pygame.draw.rect(screen,KIND_OF_YELLOW,(680,670,490,50))
+            pygame.draw.rect(screen,SECONDARY,(680,670,490,50),5)
+            draw_text("START",pygame.font.Font(None,57),SECONDARY,925,695)
         else:
-            pygame.draw.rect(screen,SECONDARY,(630,670,540,50))
-            pygame.draw.rect(screen,KIND_OF_YELLOW,(630,670,540,50),5)
-            draw_text("START",pygame.font.Font(None,57),KIND_OF_YELLOW,900,695)
+            pygame.draw.rect(screen,SECONDARY,(680,670,490,50))
+            pygame.draw.rect(screen,KIND_OF_YELLOW,(680,670,490,50),5)
+            draw_text("START",pygame.font.Font(None,57),KIND_OF_YELLOW,925,695)
 
         y_offset = box_y_initial
 
@@ -379,6 +381,9 @@ def simulation():
                 pygame.draw.rect(screen, TER_BLUE, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
                 pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
                 pygame.draw.rect(screen,SECONDARY , (box_x + 510, y_offset-25, input_dimensions[0], input_dimensions[1]))
+
+                if input_selected[i]:
+                    pygame.draw.rect(screen,(255,255,255), (box_x + 510, y_offset-25, input_dimensions[0], input_dimensions[1]),2)
                 
                 pygame.draw.circle(screen,(40,255,40),(520,y_offset-3),10)
                 draw_text(strategy.name, pygame.font.Font(None,40),(255,255,255),325, y_offset-2)
@@ -386,6 +391,10 @@ def simulation():
             else:
                 pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
                 pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
+                pygame.draw.rect(screen,SECONDARY , (box_x + 510, y_offset-25, input_dimensions[0], input_dimensions[1]))
+
+                if input_selected[i]:
+                    pygame.draw.rect(screen,(255,255,255), (box_x + 510, y_offset-25, input_dimensions[0], input_dimensions[1]),2)
                 
                 pygame.draw.circle(screen,(255,40,40),(520,y_offset-3),10)
                 draw_text(strategy.name, pygame.font.Font(None,40),(0,0,0),325, y_offset-2)
@@ -416,9 +425,6 @@ def simulation():
                     if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
                         running = False
                     
-                    elif (770 < click_pos[0] < 1170) and (554 < click_pos[1] < 604):
-                        input_selected = True
-                    
                     elif (630 < click_pos[0] < 1180) and (670 < click_pos[1] < 720):
                         try:
                             tournament_start(check_boxes,strategies,int(number_of_rounds))
@@ -426,7 +432,7 @@ def simulation():
                             print(f"Error: {e}")
 
                     else:
-                        input_selected = False
+                        input_selected = [False] * len(strategies)
 
                     x_range = (box_x,box_x+box_dimensions[0])
 
@@ -435,6 +441,16 @@ def simulation():
                         if x_range[0] < click_pos[0] < x_range[1]:
                             if y - box_y_delta < click_pos[1] < y:
                                 check_boxes[i_count] = not check_boxes[i_count]
+                    
+                        i_count += 1
+
+                    i_count = 0
+                    for y in range(box_y_initial+10,box_y_end + 1,box_y_delta):
+                        if 680 < click_pos[0] < 780:
+                            if y - box_y_delta < click_pos[1] < y:
+                                print(i_count)
+                                input_selected[i_count] = not input_selected[i_count]
+                                break
                     
                         i_count += 1
 
