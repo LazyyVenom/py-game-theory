@@ -589,5 +589,11 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
     return 
 
 
+def simulation_start():
+    print("Starting Simulation")
+
+
+
+
 if __name__ == '__main__':
     main_menu()
