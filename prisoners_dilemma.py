@@ -322,7 +322,9 @@ def tournament():
 def simulation():
     running = True
     number_of_rounds = ""
-    input_selected = False
+    input_selected = [False] * len(strategies)
+    inputs = [0] * len(strategies)
+    input_dimensions = (100,44)
     box_dimensions = (500,44)
     box_x = 50
     box_y_initial = 130
@@ -376,12 +378,15 @@ def simulation():
             if check_boxes[i]:
                 pygame.draw.rect(screen, TER_BLUE, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
                 pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
+                pygame.draw.rect(screen,SECONDARY , (box_x + 510, y_offset-25, input_dimensions[0], input_dimensions[1]))
+                
                 pygame.draw.circle(screen,(40,255,40),(520,y_offset-3),10)
                 draw_text(strategy.name, pygame.font.Font(None,40),(255,255,255),325, y_offset-2)
 
             else:
                 pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
                 pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
+                
                 pygame.draw.circle(screen,(255,40,40),(520,y_offset-3),10)
                 draw_text(strategy.name, pygame.font.Font(None,40),(0,0,0),325, y_offset-2)
 
