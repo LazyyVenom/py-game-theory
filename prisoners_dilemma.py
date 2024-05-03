@@ -323,7 +323,7 @@ def tournament():
 def simulation():
     running = True
     input_selected = [False] * len(strategies)
-    inputs = ["1000"] * len(strategies)
+    inputs = ["50"] * len(strategies)
     input_dimensions = (100,44)
     box_dimensions = (500,44)
     box_x = 50
@@ -590,18 +590,103 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
 
 
 def simulation_start(strategies,flags,inputs):
+    print("WILL BE IN COOPERATED LATER....")
+    return
     needed_strategies = []
     for i in range(len(strategies)):
         if flags[i]:
             needed_strategies.append(strategies[i])
 
+    print("STARTING THE SIMULATION")
+    
+    display_data = []
+    for i in range(len(inputs)):
+        display_data.append([needed_strategies[i],inputs[i]])
+    
+    display_data.sort(key= lambda x: x[1][0],reverse=True)
 
-    energies = [1000] * len(needed_strategies)
+    running = True
+    alive_strategies = [needed_strategies[i]*inputs[i] for i in range(len(inputs))]
 
-    #FRONT END CODE:
+    while running:
+        screen.fill(PRIMARY)
+        draw_text("SIMULATION RUNNING", pygame.font.Font(None, 80), TEXT_COLOR, screen_width // 2, 50)
 
+        box_dimensions = (500,44)
+        score_box_dimensions = (100,44)
+        box_x = 50
+        box_y_initial = 180
+        y_offset = box_y_initial
+        box_y_delta = 48
+        if display_data[0][1][0] == 0:
+            running = False
 
+        per_point_value = (box_dimensions[0]/display_data[0][1][0]) * 0.95
 
+        pygame.draw.rect(screen, TER_BLUE, (box_x, 105, box_dimensions[0], box_dimensions[1]))
+        pygame.draw.rect(screen,SECONDARY , (box_x, 105, box_dimensions[0], box_dimensions[1]),3)
+        draw_text("Strategy Name", pygame.font.Font(None,40),(250,250,250),300, 130-2)
+        
+        for data in display_data:
+            strategy_color = (55,200,55) if data[0].strategy_type == "NICE" else (200,55,55)
+
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
+
+            pygame.draw.rect(screen, strategy_color, (box_x, y_offset-25, int(data[1][0]*per_point_value), box_dimensions[1]))
+
+            pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
+            draw_text(data[0].name, pygame.font.Font(None,40),(50,50,50),325, y_offset-2)
+            
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (555, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
+            pygame.draw.rect(screen,SECONDARY , (555, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
+            draw_text(str(data[1][0]), pygame.font.Font(None,40),(50,50,50),605, y_offset-2)
+
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (665, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
+            pygame.draw.rect(screen,SECONDARY , (665, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
+            draw_text(str(data[1][4]), pygame.font.Font(None,40),(50,50,50),715, y_offset-2)
+
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (775, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
+            pygame.draw.rect(screen,SECONDARY , (775, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
+            draw_text(str(data[1][3]), pygame.font.Font(None,40),(50,50,50),825, y_offset-2)
+
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (885, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
+            pygame.draw.rect(screen,SECONDARY , (885, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
+            draw_text(str(data[1][2]), pygame.font.Font(None,40),(50,50,50),935, y_offset-2)
+
+            pygame.draw.rect(screen, KIND_OF_YELLOW, (995, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
+            pygame.draw.rect(screen,SECONDARY , (995, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
+            draw_text(str(data[1][1]), pygame.font.Font(None,40),(50,50,50),1045, y_offset-2)
+
+            image_path = f"images/{data[0].st_id}.png"
+
+            if os.path.exists(image_path):
+                image = pygame.image.load(image_path)
+                image = pygame.transform.scale(image, (50, 50))
+                screen.blit(image, (80, y_offset - 30))
+
+            y_offset += box_y_delta
+
+        pygame.draw.rect(screen,SECONDARY,(1100,20,80,50),border_radius=3)
+        draw_text("ESC", pygame.font.Font(None,50),PRIMARY,1140, 47)
+
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click_pos = event.pos
+
+                    if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
+                        running = False
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+    return 
 
 if __name__ == '__main__':
     main_menu()
