@@ -595,7 +595,11 @@ def simulation_start(strategies,flags,inputs):
         if flags[i]:
             needed_strategies.append(strategies[i])
 
-    print("STARTING THE SIMULATION")
+
+    energies = [1000] * len(needed_strategies)
+
+    #FRONT END CODE:
+
 
 
 
