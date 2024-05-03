@@ -393,7 +393,7 @@ def simulation():
             else:
                 pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
                 pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
-                pygame.draw.rect(screen,SECONDARY , (box_x + 510, y_offset-25, input_dimensions[0], input_dimensions[1]))
+                # pygame.draw.rect(screen,SECONDARY , (box_x + 510, y_offset-25, input_dimensions[0], input_dimensions[1]))
                 
                 pygame.draw.circle(screen,(255,40,40),(520,y_offset-3),10)
                 draw_text(strategy.name, pygame.font.Font(None,40),(0,0,0),325, y_offset-2)
