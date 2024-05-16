@@ -590,7 +590,7 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
 
 
 def simulation_start(strategies,flags,inputs):
-    print("WILL BE IN COOPERATED LATER....")
+    print("WILL BE IN ADDED LATER....")
     return
     needed_strategies = []
     for i in range(len(strategies)):
