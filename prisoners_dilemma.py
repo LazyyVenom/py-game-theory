@@ -591,7 +591,7 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
 
 
 def display_simulation_data(display_data):
-    box_dimensions = (500, 44)
+    box_dimensions = (700, 44)
     score_box_dimensions = (100, 44)
     box_x = 50
     box_y_initial = 180
@@ -599,28 +599,23 @@ def display_simulation_data(display_data):
     box_y_delta = 48
 
     max_alive = max(data[1] for data in display_data)
-    if max_alive == 0:
-        per_point_value = 0
-        
-    else:
-        per_point_value = (box_dimensions[0] / max_alive) * 0.95
+    per_point_value = (box_dimensions[0] / max_alive) * 0.95
 
     pygame.draw.rect(screen, TER_BLUE, (box_x, 105, box_dimensions[0], box_dimensions[1]))
     pygame.draw.rect(screen, SECONDARY, (box_x, 105, box_dimensions[0], box_dimensions[1]), 3)
-    draw_text("Strategy Name", pygame.font.Font(None, FONT_SIZE), (250, 250, 250), 300, 130 - 2)
+    draw_text("Strategy Name", pygame.font.Font(None, FONT_SIZE), (250, 250, 250), 400, 130 - 2)  # Adjusted position
 
     for data in display_data:
         strategy_color = (55, 200, 55) if data[0].strategy_type == "NICE" else (200, 55, 55)
         pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset - 25, box_dimensions[0], box_dimensions[1]))
         pygame.draw.rect(screen, strategy_color, (box_x, y_offset - 25, int(data[1] * per_point_value), box_dimensions[1]))
         pygame.draw.rect(screen, SECONDARY, (box_x, y_offset - 25, box_dimensions[0], box_dimensions[1]), 3)
-        draw_text(data[0].name, pygame.font.Font(None, FONT_SIZE), (50, 50, 50), 325, y_offset - 2)
+        draw_text(data[0].name, pygame.font.Font(None, FONT_SIZE), (50, 50, 50), 400, y_offset - 2)  # Adjusted position
 
-        for i in range(5):
-            x_pos = 555 + i * 110
-            pygame.draw.rect(screen, KIND_OF_YELLOW, (x_pos, y_offset - 25, score_box_dimensions[0], score_box_dimensions[1]))
-            pygame.draw.rect(screen, SECONDARY, (x_pos, y_offset - 25, score_box_dimensions[0], score_box_dimensions[1]), 3)
-            draw_text(str(data[1]), pygame.font.Font(None, FONT_SIZE), (50, 50, 50), x_pos + 50, y_offset - 2)
+        x_pos = 800
+        pygame.draw.rect(screen, KIND_OF_YELLOW, (x_pos, y_offset - 25, score_box_dimensions[0], score_box_dimensions[1]))
+        pygame.draw.rect(screen, SECONDARY, (x_pos, y_offset - 25, score_box_dimensions[0], score_box_dimensions[1]), 3)
+        draw_text(str(data[1]), pygame.font.Font(None, FONT_SIZE), (50, 50, 50), x_pos + 50, y_offset - 2)
 
         image_path = f"images/{data[0].st_id}.png"
         if os.path.exists(image_path):
@@ -630,7 +625,7 @@ def display_simulation_data(display_data):
 
         y_offset += box_y_delta
 
-# Function to handle events
+
 def handle_events():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -646,10 +641,15 @@ def handle_events():
                 return False
     return True
 
+
 def simulate_interactions(alive_strategies):
-    for i in range(len(alive_strategies)):
-        if alive_strategies[i][1] > 0:
-            alive_strategies[i][1] -= 1 if (alive_strategies[i][1] > 0 and random.random() < 0.1) else 0
+    """
+    Logic for simulating strategy
+    """
+    st_1 = random.choice(alive_strategies)
+    st_2 = random.choice(alive_strategies)
+
+    
 
 def simulation_start(strategies, flags, inputs):
     needed_strategies = [strategies[i] for i in range(len(strategies)) if flags[i]]
@@ -676,7 +676,6 @@ def simulation_start(strategies, flags, inputs):
 
         running = handle_events()
 
-        # Update the simulation logic
         simulate_interactions(display_data)
         prev_results.append([data[1] for data in display_data])
 
