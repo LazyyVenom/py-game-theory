@@ -425,10 +425,10 @@ def simulation():
                         running = False
                     
                     elif (630 < click_pos[0] < 1180) and (670 < click_pos[1] < 720):
-                        try:
-                            simulation_start(strategies,check_boxes,inputs)
-                        except Exception as e:
-                            print(f"Error: {e}")
+                        # try:
+                        simulation_start(strategies,check_boxes,inputs)
+                        # except Exception as e:
+                        #     print(f"Error: {e}")
 
                     else:
                         input_selected = [False] * len(strategies)
@@ -598,12 +598,15 @@ def simulation_start(strategies,flags,inputs):
     
     display_data = []
     for i in range(len(inputs)):
-        display_data.append([needed_strategies[i],inputs[i]])
+        display_data.append([needed_strategies[i],int(inputs[i])])
     
-    display_data.sort(key= lambda x: x[1][0],reverse=True)
+    # display_data.sort(key= lambda x: x[1][0],reverse=True)
 
     running = True
-    alive_strategies = [needed_strategies[i]*inputs[i] for i in range(len(inputs))]
+    alive_strategies = []
+    for data in display_data:
+        for _ in range(int(data[1])):
+            alive_strategies.append(data[0])
 
     while running:
         screen.fill(PRIMARY)
@@ -615,10 +618,10 @@ def simulation_start(strategies,flags,inputs):
         box_y_initial = 180
         y_offset = box_y_initial
         box_y_delta = 48
-        if display_data[0][1][0] == 0:
+        if display_data[0][1] == 0:
             running = False
 
-        per_point_value = (box_dimensions[0]/display_data[0][1][0]) * 0.95
+        per_point_value = (box_dimensions[0]/int(display_data[0][1])) * 0.95
 
         pygame.draw.rect(screen, TER_BLUE, (box_x, 105, box_dimensions[0], box_dimensions[1]))
         pygame.draw.rect(screen,SECONDARY , (box_x, 105, box_dimensions[0], box_dimensions[1]),3)
@@ -629,30 +632,30 @@ def simulation_start(strategies,flags,inputs):
 
             pygame.draw.rect(screen, KIND_OF_YELLOW, (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]))
 
-            pygame.draw.rect(screen, strategy_color, (box_x, y_offset-25, int(data[1][0]*per_point_value), box_dimensions[1]))
+            pygame.draw.rect(screen, strategy_color, (box_x, y_offset-25, int(data[1]*per_point_value), box_dimensions[1]))
 
             pygame.draw.rect(screen,SECONDARY , (box_x, y_offset-25, box_dimensions[0], box_dimensions[1]),3)
             draw_text(data[0].name, pygame.font.Font(None,40),(50,50,50),325, y_offset-2)
             
             pygame.draw.rect(screen, KIND_OF_YELLOW, (555, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
             pygame.draw.rect(screen,SECONDARY , (555, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
-            draw_text(str(data[1][0]), pygame.font.Font(None,40),(50,50,50),605, y_offset-2)
+            draw_text(str(data[1]), pygame.font.Font(None,40),(50,50,50),605, y_offset-2)
 
             pygame.draw.rect(screen, KIND_OF_YELLOW, (665, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
             pygame.draw.rect(screen,SECONDARY , (665, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
-            draw_text(str(data[1][4]), pygame.font.Font(None,40),(50,50,50),715, y_offset-2)
+            draw_text(str(data[1]), pygame.font.Font(None,40),(50,50,50),715, y_offset-2)
 
             pygame.draw.rect(screen, KIND_OF_YELLOW, (775, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
             pygame.draw.rect(screen,SECONDARY , (775, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
-            draw_text(str(data[1][3]), pygame.font.Font(None,40),(50,50,50),825, y_offset-2)
+            draw_text(str(data[1]), pygame.font.Font(None,40),(50,50,50),825, y_offset-2)
 
             pygame.draw.rect(screen, KIND_OF_YELLOW, (885, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
             pygame.draw.rect(screen,SECONDARY , (885, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
-            draw_text(str(data[1][2]), pygame.font.Font(None,40),(50,50,50),935, y_offset-2)
+            draw_text(str(data[1]), pygame.font.Font(None,40),(50,50,50),935, y_offset-2)
 
             pygame.draw.rect(screen, KIND_OF_YELLOW, (995, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]))
             pygame.draw.rect(screen,SECONDARY , (995, y_offset-25, score_box_dimensions[0], score_box_dimensions[1]),3)
-            draw_text(str(data[1][1]), pygame.font.Font(None,40),(50,50,50),1045, y_offset-2)
+            draw_text(str(data[1]), pygame.font.Font(None,40),(50,50,50),1045, y_offset-2)
 
             image_path = f"images/{data[0].st_id}.png"
 
