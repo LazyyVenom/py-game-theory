@@ -583,7 +583,7 @@ def tournament_start(flags: list, strategies: typing.List[Strategy], rounds: int
 
                     if (1100 < click_pos[0] < 1180) and (20 < click_pos[1] < 70):
                         running = False
-            
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
