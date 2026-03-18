@@ -15,7 +15,7 @@ def tournament_logic(strategies: typing.List[Strategy],rounds) -> typing.List[li
     scores = []
 
     for index, strategy in enumerate(strategies):
-        scoree = [0,0,0,0,0]
+        scoree = [0,0,0,0,0, 0, 0]
 
         for opponent_strategy in strategies:
             for _ in range(rounds):
